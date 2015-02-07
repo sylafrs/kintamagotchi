@@ -15,11 +15,12 @@ public class Monster : MonoBehaviour
 
 	public void OnTapped()
 	{
-		this.transform.FindChild("Cube").renderer.material.color = Utils.RandomColor();
+		//this.transform.FindChild("Cube").renderer.material.color = Utils.RandomColor();
 	}
 
 	public void OnMoved(Vector3 pPosition)
 	{
+		target.position = pPosition;
 		transform.position = pPosition;
 	}
 
@@ -27,7 +28,7 @@ public class Monster : MonoBehaviour
 	{
 		target.position = pPosition;
 	}
-	
+
 	private void OnInteraction(InteractionType obj)
 	{
 		GameData.Get.Data.MoralLastInteraction =

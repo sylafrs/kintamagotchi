@@ -45,8 +45,12 @@ public class InteractionManager : MonoBehaviour
 		{
 			if (Input.GetMouseButtonDown(0))
 			{
-				Tapped(Input.mousePosition);
+				GetObjectTouched(Input.mousePosition);
 			}
+			else if (Input.GetMouseButtonUp(0))
+				Tapped(Input.mousePosition);
+			else if (Input.GetMouseButton(0))
+				Moved(Input.mousePosition);
 		}
 	}
 
@@ -72,13 +76,22 @@ public class InteractionManager : MonoBehaviour
 	{
 		if (__objectTouched)
 		{
-			pMousePos.z = __objectTouched.transform.position.z;
+			pMousePos.z = this.camera.nearClipPlane;
 			pMousePos = this.camera.ScreenToWorldPoint(pMousePos);
-			//GameObject.FindGameObjectWithTag("Player").SendMessage("OnTapped", Vector3.zero, SendMessageOptions.DontRequireReceiver);
-			__objectTouched.SendMessage("OnMoved", pMousePos, SendMessageOptions.DontRequireReceiver);
 
-			if (OnInteraction != null)
-				OnInteraction(InteractionType.MOVED);
+			Ray ray = new Ray(this.transform.position, pMousePos - this.transform.position);
+			RaycastHit hit;
+			if (Physics.Raycast(ray, out hit, this.camera.farClipPlane, ~(1 << 8)))
+			{
+				test = hit.point;
+				if (hit.transform.CompareTag("Ground"))
+				{
+					__objectTouched.SendMessage("OnMoved", hit.point, SendMessageOptions.DontRequireReceiver);
+			
+					if (OnInteraction != null)
+						OnInteraction(InteractionType.MOVED);
+				}
+			}
 		}
 	}
 

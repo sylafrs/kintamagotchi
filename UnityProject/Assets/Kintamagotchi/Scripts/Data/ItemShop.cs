@@ -8,6 +8,13 @@ using System.Collections.Generic;
 
 //******************************************************************************
 
+public enum TypeItem
+{
+	Consommable,
+	Meuble,
+	Assurance
+}
+
 [System.Serializable]
 public class ItemDesc
 {
@@ -15,6 +22,7 @@ public class ItemDesc
 	public string	Sprite;
 	public string	Desc;
 	public int		Price;
+	public TypeItem	Type;
 }
 
 [System.Serializable]
@@ -52,6 +60,17 @@ public class ItemShop : MonoBehaviour
 #endregion
 
 #region Methods
+	public ItemDesc GetItem(string name)
+	{
+		ItemDesc ret = ItemDescList.Find(x => x.Name.Equals(name));
+		return ret;
+	}
+
+	public DiamondsDesc GetDiamonds(string name)
+	{
+		DiamondsDesc ret = DiamondsDescList.Find(x => x.Name.Equals(name));
+		return ret;
+	}
 #endregion
 
 #region Implementation

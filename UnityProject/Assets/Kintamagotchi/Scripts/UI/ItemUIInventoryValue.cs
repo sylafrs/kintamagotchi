@@ -19,7 +19,7 @@ public class ItemUIInventoryValue : MonoBehaviour
 #region Methods
 	public void BuyItem()
 	{
-		ShopManager.Get.BuyItem(Name.text);
+		MenuManager.Get.UseItem(Name.text);
 	}
 #endregion
 
