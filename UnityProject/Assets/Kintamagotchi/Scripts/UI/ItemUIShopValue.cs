@@ -20,7 +20,7 @@ public class ItemUIShopValue : MonoBehaviour
 #region Methods
 	public void BuyItem()
 	{
-		ShopManager.Get.BuyItem(Name.text);
+		ShopManager.Get.BuyItem(Name.text, TypePanel.Shop);
 	}
 #endregion
 }

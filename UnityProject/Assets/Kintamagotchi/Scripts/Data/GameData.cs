@@ -11,7 +11,7 @@ using System.Collections.Generic;
 public class GameData : MonoBehaviour
 {
 	[System.Serializable]
-	public struct Item
+	public class Item
 	{
 		public ItemDesc		ItemDetail;
 		public int			Number;
@@ -73,6 +73,28 @@ public class GameData : MonoBehaviour
 	{
 		var dataPath = Path.Combine(Application.persistentDataPath, "SaveData.xml");
 		Serialization.ToFile<SaveData>(Data, dataPath);
+	}
+
+	public Item GetItem(string name)
+	{
+		return Data.Inventory.Find(x => x.ItemDetail.Name.Equals(name));
+	}
+
+	public void AddItem(Item item)
+	{
+		Data.Inventory.Add(item);
+	}
+
+	public void UpdateCountItem(Item item)
+	{
+		foreach (Item it in Data.Inventory)
+		{
+			if (it.ItemDetail == item.ItemDetail)
+			{
+				it.Number++;
+				return;
+			}
+		}
 	}
 #endregion
 }
