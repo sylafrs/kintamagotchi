@@ -71,7 +71,8 @@ public class InteractionManager : MonoBehaviour
 			if (Physics.Raycast(ray, out hit, this.camera.farClipPlane, ~(1 << 8)))
 			{
 				test = hit.point;
-				__objectTouched.SendMessage("OnMoved", hit.point, SendMessageOptions.DontRequireReceiver);
+				if (hit.transform.CompareTag("Ground"))
+					__objectTouched.SendMessage("OnMoved", hit.point, SendMessageOptions.DontRequireReceiver);
 			}
 		}
 	}
