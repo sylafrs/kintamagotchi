@@ -8,28 +8,45 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 
+[Serializable]
+public class EventCheck
+{
+	public string EventChecked;
+	public DateTime LastCheckTime;
+}
+
+[System.Serializable]
+public class GameDataItem
+{
+	public ItemDesc ItemDetail;
+	public int Number;
+}
+
+[System.Serializable]
+public class SaveData
+{
+	public int Level = 1;
+	public float Exp = 0;
+	public int Diamonds = 25;
+	public List<EventCheck> EventChecks = new List<EventCheck>();
+	public List<GameDataItem> Inventory;
+	public float MoralLastInteraction = 0;
+	public float Moral = 0.4f;
+	public EventCheck GetEventCheckByName(string name)
+	{
+		foreach (EventCheck e in EventChecks)
+		{
+			if (e.EventChecked == name)
+				return e;
+		}
+
+		return null;
+	}
+}
+
 //******************************************************************************
 public class GameData : MonoBehaviour
 {
-	[System.Serializable]
-	public class Item
-	{
-		public ItemDesc		ItemDetail;
-		public int			Number;
-	}
-
-	[System.Serializable]
-	public class SaveData
-	{
-		public int							Level = 1;
-		public float						Exp = 0;
-		public int							Diamonds = 25;
-		public Dictionary<string, DateTime> EventChecks;
-		public List<Item>					Inventory;
-		public float						MoralLastInteraction = 0;
-		public float						Moral = 0.4f;
-	}
-
 #region Static
 	private static GameData mInstance;
 	public static GameData Get { get{ return mInstance; } }
@@ -79,19 +96,19 @@ public class GameData : MonoBehaviour
 		Serialization.ToFile<SaveData>(Data, dataPath);
 	}
 
-	public Item GetItem(string name)
+	public GameDataItem GetItem(string name)
 	{
 		return Data.Inventory.Find(x => x.ItemDetail.Name.Equals(name));
 	}
 
-	public void AddItem(Item item)
+	public void AddItem(GameDataItem item)
 	{
 		Data.Inventory.Add(item);
 	}
 
-	public void UpdateCountItem(Item item)
+	public void UpdateCountItem(GameDataItem item)
 	{
-		foreach (Item it in Data.Inventory)
+		foreach (GameDataItem it in Data.Inventory)
 		{
 			if (it.ItemDetail == item.ItemDetail)
 			{
