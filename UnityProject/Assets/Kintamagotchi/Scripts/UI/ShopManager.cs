@@ -40,16 +40,15 @@ public class ShopManager : MonoBehaviour
 		PanelInventory.SetActive(false);
 	}
 
-	public void Show()
+	public void SwitchVisibility()
 	{
-		if (PanelGlobal.activeSelf)
-			PanelGlobal.SetActive(false);
-		else
+		PanelGlobal.SetActive(!PanelGlobal.activeSelf);
+		InteractionManager.instance.enabled = !PanelGlobal.activeSelf;
+		
+		if(PanelGlobal.activeSelf)
 		{
-			PanelGlobal.SetActive(true);
 			ShowInventory();
 		}
-
 	}
 #endregion
 }
