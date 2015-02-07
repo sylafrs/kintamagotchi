@@ -17,7 +17,7 @@ public class ItemUIDiamonsValue : MonoBehaviour
 #region Methods
 	public void BuyItem()
 	{
-		ShopManager.Get.BuyItem(Name.text, TypePanel.Diamonds);
+		MenuManager.Get.BuyItem(Name.text, TypePanel.Diamonds);
 	}
 #endregion
 

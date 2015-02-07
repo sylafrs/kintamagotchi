@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 //******************************************************************************
-public class ShopManager : MonoBehaviour 
+public class MenuManager : MonoBehaviour 
 {
 #region Script Parameters
 	public GameObject	PanelShop;
@@ -19,11 +19,13 @@ public class ShopManager : MonoBehaviour
 	public BoxUI		DialogBox;
 	public BoxUI		MessageBox;
 	public Text			DiamondsLabel;
+	public GameObject	ImgMaladie;
+	public GameObject	ImgHabitation;
 #endregion
 
 #region Static
-	private static ShopManager mInstance;
-	public static ShopManager Get { get { return mInstance; } }
+	private static MenuManager mInstance;
+	public static MenuManager Get { get { return mInstance; } }
 #endregion
 
 #region Fields

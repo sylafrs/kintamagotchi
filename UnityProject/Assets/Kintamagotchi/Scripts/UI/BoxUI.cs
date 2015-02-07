@@ -32,7 +32,7 @@ public class BoxUI : MonoBehaviour
 
 	public void Validate()
 	{
-		ShopManager.Get.ValidatedBuy();
+		MenuManager.Get.ValidatedBuy();
 		this.gameObject.SetActive(false);
 	}
 
