@@ -3,9 +3,16 @@ using System.Collections;
 
 public class InteractionManager : MonoBehaviour
 {
-	public Vector3 test;
+	private Vector3 test;
 
 	private GameObject __objectTouched;
+
+	public static InteractionManager instance { get; private set; }
+
+	public void Awake()
+	{
+		instance = this;
+	}
 
 	public void Update()
 	{

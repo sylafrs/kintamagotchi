@@ -12,7 +12,8 @@ using System.Collections.Generic;
 public enum TypePanel
 {
 	Shop,
-	Inventory
+	Inventory,
+	Diamonds
 }
 
 public class PanelGenerator : MonoBehaviour 
@@ -57,10 +58,36 @@ public class PanelGenerator : MonoBehaviour
 	private void GeneratePanel()
 	{
 		Clear();
-		if (Type == TypePanel.Inventory)
-			GenerateInventoryPanel();
-		else
-			GenerateShopPanel();
+		switch (Type)
+		{
+			case TypePanel.Inventory:
+				GenerateInventoryPanel();
+				break;
+			case TypePanel.Shop:
+				GenerateShopPanel();
+				break;
+			case TypePanel.Diamonds:
+				GenerateDiamondsPanel();
+				break;
+			default:
+				break;
+		}
+	}
+	private void GenerateDiamondsPanel()
+	{
+		foreach (DiamondsDesc item in ItemsShop.DiamondsDescList)
+		{
+			var container = GameObject.Instantiate(Resources.Load("Prefabs/UI/" + Type)) as GameObject;
+			SetParent(container, transform);
+			var uiValue = container.GetComponent<ItemUIDiamonsValue>();
+			if (!uiValue)
+			{
+				Debug.LogError("no ItemUIValue on prefab " + container.name);
+				return;
+			}
+			uiValue.Name.text = item.Name;
+			uiValue.Price.text = item.Price.ToString();
+		}
 	}
 	
 	private void GenerateShopPanel()
