@@ -81,11 +81,15 @@ public class GameData : MonoBehaviour
 
 	public Item GetItem(string name)
 	{
+		if (GameData.Get.Data.Inventory == null)
+			return null;
 		return Data.Inventory.Find(x => x.ItemDetail.Name.Equals(name));
 	}
 
 	public void AddItem(Item item)
 	{
+		if (GameData.Get.Data.Inventory == null)
+			Data.Inventory = new List<Item>();
 		Data.Inventory.Add(item);
 	}
 
