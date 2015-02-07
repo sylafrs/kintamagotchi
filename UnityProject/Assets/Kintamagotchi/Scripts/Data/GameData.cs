@@ -12,7 +12,7 @@ using System;
 public class EventCheck
 {
 	public string EventChecked;
-	public DateTime LastCheckTime;
+	public DateTime LastCheckTime = DateTime.Now;
 }
 
 [System.Serializable]
@@ -75,6 +75,7 @@ public class GameData : MonoBehaviour
 	{
 		Save();
 	}
+
 #endregion
 
 #region Methods
