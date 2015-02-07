@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Tv : Object 
+public class Tv : cObject 
 {
 	// Use this for initialization
 	void Start () 
