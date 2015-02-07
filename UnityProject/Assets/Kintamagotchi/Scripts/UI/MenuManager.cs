@@ -34,6 +34,8 @@ public class MenuManager : MonoBehaviour
 #region Fields
 	private ItemDesc		mItemToBuy;
 	private DiamondsDesc	mDiamondsToBuy;
+	private GameObject		mItemGrab = null;
+	private bool			mDropItem = true;
 	private const string	CONFIRMATION_MSG = "Voulez-vous vraiment acheter ";
 	private const string	ERROR_MSG = "Solde insuffisant";
 	private const string	ALREADY_BUY = "Objet déjà acheté";
@@ -61,6 +63,18 @@ public class MenuManager : MonoBehaviour
 	{
 		UpdateDiamonds();
 		UpdateExp();
+		if (mItemGrab)
+		{
+			if (UpdatePosItemGrab())
+			{
+				Destroy(mItemGrab);
+				mItemGrab = null;
+				mDropItem = true;
+				return;
+			}
+			if (mDropItem)
+				DropItem();
+		}
 	}
 #endregion
 
@@ -141,15 +155,79 @@ public class MenuManager : MonoBehaviour
 
 	public void UseItem(string name)
 	{
+		mItemGrab = GameObject.Instantiate(Resources.Load("Prefabs/Item/Cube")) as GameObject;
+		ItemDesc itemDesc = ItemsShop.GetItem(name);
+		mItemGrab.GetComponent<Items>().ItemDesc = itemDesc;
+		mDropItem = false;
+		PanelGlobal.SetActive(false);
+	}
 
+	public void DropItem()
+	{
+		//raycast verif emplacement
+		mItemGrab.GetComponent<Items>().Use();
+		mItemGrab = null;
+		InteractionManager.instance.enabled = true;
+		Debug.Log("itemDrop");
 	}
 #endregion
 
 #region Implementations
+	private Vector3 GetMousePosition()
+	{
+#if !FORCE_MOUSE
+		if (Input.touchSupported)
+		{
+			if (Input.touchCount > 0)
+			{
+				Touch t = Input.GetTouch(0);
+				if (t.phase == TouchPhase.Moved)
+					mDropItem = false;
+				else if (t.phase == TouchPhase.Ended)
+					mDropItem = true;
+				return t.position;
+			}
+		}
+		else
+#endif
+		{
+			if (Input.GetMouseButtonUp(0))
+				mDropItem = true;
+			else if (Input.GetMouseButton(0))
+				mDropItem = false;
+			return Input.mousePosition;
+		}
+		return Vector3.zero;
+	}
+
+	private Vector3 GetMousePositionToWorld(Vector3 mousePos)
+	{
+		var obj = GameObject.FindGameObjectWithTag("Player");
+		if (!obj)
+		{
+			Debug.LogError("No gameObject with tag Player");
+			return Vector3.zero;
+		}
+		mousePos.z = Camera.main.nearClipPlane + 4f;
+		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+		return mousePos;
+	}
+
+	private bool UpdatePosItemGrab()
+	{
+		Vector3 mousePos = GetMousePosition();
+		if (mousePos == Vector3.zero)
+			return true;
+		mItemGrab.transform.position = GetMousePositionToWorld(mousePos);
+		if (mItemGrab.transform.position == Vector3.zero)
+			return true;
+		return false;
+	}
+
 	private bool BuyItem()
 	{
 		GameDataItem	item;
-		int		diamonds = GameData.Get.Data.Diamonds;
+		int				diamonds = GameData.Get.Data.Diamonds;
 
 		if (diamonds < mItemToBuy.Price)
 			return false;

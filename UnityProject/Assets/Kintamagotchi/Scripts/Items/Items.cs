@@ -6,10 +6,10 @@ using UnityEngine;
 using System.Collections;
 
 //******************************************************************************
-public class SplashScreen : MonoBehaviour 
+public class Items : MonoBehaviour 
 {
 #region Script Parameters
-	public float	Delay = 2;
+	public ItemDesc		ItemDesc;
 #endregion
 
 #region Static
@@ -22,21 +22,25 @@ public class SplashScreen : MonoBehaviour
 	// Const -------------------------------------------------------------------
 
 	// Private -----------------------------------------------------------------
-	private AsyncOperation	mAsync;
-	private float			mTime = 0;
 #endregion
 
 #region Unity Methods
-	void Start() 
+	void Start () 
 	{
-		
 	}
-
+	
 	void Update () 
 	{
-		mTime += Time.deltaTime;
-		if (mTime > Delay)
-			Application.LoadLevel("main");
 	}
+#endregion
+
+#region Methods
+	public void Use()
+	{
+		Debug.Log(ItemDesc.Name);
+	}
+#endregion
+
+#region Implementation
 #endregion
 }

@@ -25,7 +25,9 @@ public class TimeEventDepression : TimeEvent
 		float toLose = ratio * GameData.Get.Data.MoralLastInteraction;
 		// Petite depression
 		GameData.Get.Data.Moral = 
-			Mathf.Min(0, GameData.Get.Data.Moral - toLose);
+			Mathf.Max(0, GameData.Get.Data.Moral - toLose);
+
+		Debug.Log("Current moral : " + GameData.Get.Data.Moral);
 	}
 
 	public override DateTime GetLastCheck(int i, DateTime lastCheck)
