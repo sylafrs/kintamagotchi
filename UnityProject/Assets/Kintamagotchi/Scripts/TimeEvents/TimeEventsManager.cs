@@ -16,20 +16,41 @@ public class TimeEventsManager : MonoBehaviour {
 		InvokeRepeating("Check", 0, 600);
 	}
 
+	public EventCheck HasEvent(List<EventCheck> events, string name)
+	{
+		foreach (EventCheck e in events)
+		{
+			if (e.EventChecked == name)
+				return e;
+		}
+
+		return null;
+	}
+
 	public void Check()
 	{
 		DateTime lastCheck;
 		DateTime now = DateTime.Now;
-		Dictionary<string, DateTime> checks = GameData.Get.Data.EventChecks;
+		List<EventCheck> checks = GameData.Get.Data.EventChecks;
+		EventCheck eCheck;
 
 		foreach(TimeEvent e in Events)
 		{			
 			lastCheck = now;
-			if(checks.ContainsKey(e.Name))		
-				lastCheck = checks[e.Name];			
-			else			
-				checks.Add(e.Name, now);
 			
+			eCheck = HasEvent(checks, e.Name);
+			if (eCheck == null)
+			{
+				eCheck = new EventCheck();
+				eCheck.EventChecked = e.Name;
+				eCheck.LastCheckTime = now;
+				checks.Add(eCheck);
+			}
+			else
+			{
+				lastCheck = eCheck.LastCheckTime;
+			}
+
 			int count = e.MustCheck(now - lastCheck);
 			for (int i = 0; i < count; i++)
 			{
@@ -42,7 +63,7 @@ public class TimeEventsManager : MonoBehaviour {
 					}
 				}
 
-				checks[e.Name] = e.GetLastCheck(i, lastCheck);
+				eCheck.LastCheckTime = e.GetLastCheck(i, lastCheck);
 			}
 		}
 	}	

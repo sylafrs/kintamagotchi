@@ -109,6 +109,8 @@ public class PanelGenerator : MonoBehaviour
 	}
 	private void GenerateInventoryPanel()
 	{
+		if (GameData.Get.Data.Inventory == null)
+			return;
 		foreach(var item in GameData.Get.Data.Inventory)
 		{
 			var container = GameObject.Instantiate(Resources.Load("Prefabs/UI/" + Type)) as GameObject;

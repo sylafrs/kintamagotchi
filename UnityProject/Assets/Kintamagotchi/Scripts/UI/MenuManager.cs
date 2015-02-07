@@ -15,12 +15,15 @@ public class MenuManager : MonoBehaviour
 	public GameObject	PanelInventory;
 	public GameObject	PanelDiamonds;
 	public GameObject	PanelGlobal;
+	public Button		ButtonInventory;
+	public Button		ButtonShop;
 	public ItemShop		ItemsShop;
 	public BoxUI		DialogBox;
 	public BoxUI		MessageBox;
 	public Text			DiamondsLabel;
 	public GameObject	ImgMaladie;
 	public GameObject	ImgHabitation;
+	public Slider		Exp;
 #endregion
 
 #region Static
@@ -51,6 +54,13 @@ public class MenuManager : MonoBehaviour
 	void Start()
 	{
 		UpdateDiamonds();
+		UpdateExp();
+	}
+
+	void Update()
+	{
+		UpdateDiamonds();
+		UpdateExp();
 	}
 #endregion
 
@@ -60,6 +70,9 @@ public class MenuManager : MonoBehaviour
 		PanelShop.SetActive(false);
 		PanelDiamonds.SetActive(false);
 		PanelInventory.SetActive(true);
+		ButtonInventory.gameObject.SetActive(true);
+		ButtonShop.gameObject.SetActive(true);
+		ClearPopup();
 	}
 
 	public void ShowShop()
@@ -67,25 +80,36 @@ public class MenuManager : MonoBehaviour
 		PanelShop.SetActive(true);
 		PanelDiamonds.SetActive(false);
 		PanelInventory.SetActive(false);
+		ButtonInventory.gameObject.SetActive(true);
+		ButtonShop.gameObject.SetActive(true);
+		ClearPopup();
 	}
 
 	public void ShowDiamonds()
 	{
-		if (!PanelGlobal.activeSelf)
+		if (!(PanelGlobal.activeSelf && (PanelShop.activeSelf || PanelInventory.activeSelf)))
 		{
-			InteractionManager.instance.enabled = false;
-			PanelGlobal.SetActive(true);
+			PanelGlobal.SetActive(!PanelGlobal.activeSelf);
+			InteractionManager.instance.enabled = !PanelGlobal.activeSelf;
 		}
-		PanelShop.SetActive(false);
-		PanelDiamonds.SetActive(true);
-		PanelInventory.SetActive(false);
+		if (PanelGlobal.activeSelf)
+		{
+			PanelShop.SetActive(false);
+			PanelDiamonds.SetActive(true);
+			PanelInventory.SetActive(false);
+			ButtonInventory.gameObject.SetActive(false);
+			ButtonShop.gameObject.SetActive(false);
+		}
+		ClearPopup();
 	}
 
 	public void SwitchVisibility()
 	{
-		PanelGlobal.SetActive(!PanelGlobal.activeSelf);
-		InteractionManager.instance.enabled = !PanelGlobal.activeSelf;
-		
+		if (!(PanelGlobal.activeSelf  && PanelDiamonds.activeSelf))
+		{
+			PanelGlobal.SetActive(!PanelGlobal.activeSelf);
+			InteractionManager.instance.enabled = !PanelGlobal.activeSelf;
+		}
 		if(PanelGlobal.activeSelf)
 		{
 			ShowInventory();
@@ -124,8 +148,8 @@ public class MenuManager : MonoBehaviour
 #region Implementations
 	private bool BuyItem()
 	{
-		GameData.Item	item;
-		int				diamonds = GameData.Get.Data.Diamonds;
+		GameDataItem	item;
+		int		diamonds = GameData.Get.Data.Diamonds;
 
 		if (diamonds < mItemToBuy.Price)
 			return false;
@@ -145,7 +169,7 @@ public class MenuManager : MonoBehaviour
 		else
 		{
 			GameData.Get.Data.Diamonds = diamonds - mItemToBuy.Price;
-			item = new GameData.Item();
+			item = new GameDataItem();
 			item.ItemDetail = mItemToBuy;
 			item.Number = 1;
 			GameData.Get.AddItem(item);
@@ -166,6 +190,29 @@ public class MenuManager : MonoBehaviour
 	private void UpdateDiamonds()
 	{
 		DiamondsLabel.text = GameData.Get.Data.Diamonds.ToString();
+	}
+
+	private void UpdateExp()
+	{
+		Exp.value = GameData.Get.Data.Exp;
+	}
+
+	private void ClearPopup()
+	{
+		mItemToBuy = null;
+		mDiamondsToBuy = null;
+		MessageBox.gameObject.SetActive(false);
+		DialogBox.gameObject.SetActive(false);
+	}
+
+	public void ShowMaladie()
+	{
+		ImgMaladie.SetActive(!ImgMaladie.activeSelf);
+	}
+
+	public void ShowHabitation()
+	{
+		ImgHabitation.SetActive(!ImgHabitation.activeSelf);
 	}
 #endregion
 }
