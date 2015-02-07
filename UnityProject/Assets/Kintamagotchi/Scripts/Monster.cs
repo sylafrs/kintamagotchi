@@ -10,7 +10,7 @@ public class Monster : MonoBehaviour
         target.position = this.transform.position;
     }
 
-	public void OnInteraction()
+	public void OnTapped()
 	{
 		this.transform.FindChild("Cube").renderer.material.color = Utils.RandomColor();
 	}

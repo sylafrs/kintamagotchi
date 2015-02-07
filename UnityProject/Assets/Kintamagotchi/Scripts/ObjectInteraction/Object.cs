@@ -22,7 +22,7 @@ public class Object : MonoBehaviour
         _monsterScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Monster>();
 	}
 
-    public virtual void OnInteraction()
+    public virtual void OnTapped()
     {
         Debug.Log(_pType);
         _monsterScript.MoveTo(defaultMonsterMosition.position);

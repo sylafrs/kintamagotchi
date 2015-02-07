@@ -10,8 +10,8 @@ public class Bed : Object
         _pType = eObjectType._BED_;
     }
 
-    public override void OnInteraction()
+    public override void OnTapped()
     {
-        base.OnInteraction();
+        base.OnTapped();
     }
 }

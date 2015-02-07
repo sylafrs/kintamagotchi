@@ -10,7 +10,7 @@ public class MoveMonster : MonoBehaviour
         __monsterScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Monster>();
     }
 
-	void OnInteraction(Vector3 point)
+	void OnTapped(Vector3 point)
 	{
         __monsterScript.MoveTo(point);
 	}

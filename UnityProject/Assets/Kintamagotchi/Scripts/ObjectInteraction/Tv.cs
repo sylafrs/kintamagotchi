@@ -10,8 +10,8 @@ public class Tv : Object
         _pType = eObjectType._TV_;
 	}
 
-    public override void OnInteraction()
+    public override void OnTapped()
     {
- 	    base.OnInteraction();
+ 	    base.OnTapped();
     }
 }
