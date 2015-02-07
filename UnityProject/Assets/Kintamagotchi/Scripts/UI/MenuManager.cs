@@ -157,7 +157,7 @@ public class MenuManager : MonoBehaviour
 	{
 		mItemGrab = GameObject.Instantiate(Resources.Load("Prefabs/Item/Cube")) as GameObject;
 		ItemDesc itemDesc = ItemsShop.GetItem(name);
-		mItemGrab.GetComponent<Items>().ItemDesc = itemDesc;
+		mItemGrab.GetComponent<Item>().ItemDesc = itemDesc;
 		mDropItem = false;
 		PanelGlobal.SetActive(false);
 	}
@@ -169,9 +169,9 @@ public class MenuManager : MonoBehaviour
 		obj = InteractionManager.instance.FindObjectTouched(GetMousePosition());
 		if (obj)
 		{
-			if (CheckItemToCollider(obj) && mItemGrab.GetComponent<Items>().CanUse())
+			if (CheckItemToCollider(obj) && mItemGrab.GetComponent<Item>().CanUse)
 			{
-				GameData.Get.DecreaseCountItem(mItemGrab.GetComponent<Items>().ItemDesc);
+				GameData.Get.DecreaseCountItem(mItemGrab.GetComponent<Item>().ItemDesc);
 			}
 		}
 		mItemGrab = null;
@@ -182,7 +182,7 @@ public class MenuManager : MonoBehaviour
 #region Implementations
 	private bool CheckItemToCollider(GameObject obj)
 	{
-		ItemDesc itemDesc = mItemGrab.GetComponent<Items>().ItemDesc;
+		ItemDesc itemDesc = mItemGrab.GetComponent<Item>().ItemDesc;
 		switch (itemDesc.Type)
 		{
 			case TypeItem.Consommable:

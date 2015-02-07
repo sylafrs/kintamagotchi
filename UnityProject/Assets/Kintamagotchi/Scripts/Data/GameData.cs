@@ -26,12 +26,13 @@ public class GameDataItem
 public class SaveData
 {
 	public int					Level = 1;
-	public float				Exp = 0;
+	public int					Exp = 0;
 	public int					Diamonds = 25;
 	public List<EventCheck>		EventChecks = new List<EventCheck>();
 	public List<GameDataItem>	Inventory;
 	public float				MoralLastInteraction = 0;
 	public float				Moral = 0.4f;
+	public int []				Spots = new int[4] {-1, -1, -1, -1};
 
 	public EventCheck GetEventCheckByName(string name)
 	{
@@ -136,4 +137,53 @@ public class GameData : MonoBehaviour
 		}
 	}
 #endregion
+
+	public int MaxExp
+	{
+		get
+		{
+			switch (Data.Level)
+			{
+				case 1:
+					return 150;
+				case 2:
+					return 175;
+				case 3:
+					return 200;
+				case 4:
+					return 225;
+				case 6:
+					return 250;
+			}
+
+			return 250;
+		}
+	}
+
+	public void CheckXP()
+	{
+		while (Data.Exp > MaxExp)
+		{
+			Data.Exp -= MaxExp;
+			Data.Level++;
+		}
+	}
+
+	public void CheckMorale()
+	{
+		Data.Moral = Mathf.Clamp01(Data.Moral);
+
+		if(Data.Moral < 0.2f)
+		{
+			// SAD :'(
+		}
+		else if(Data.Moral < 0.45f)
+		{
+			// NEUTRAL :|
+		}
+		else
+		{
+			// HAPPY ! :D
+		}
+	}
 }

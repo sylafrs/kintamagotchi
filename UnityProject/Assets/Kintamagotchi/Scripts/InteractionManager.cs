@@ -14,6 +14,12 @@ public class InteractionManager : MonoBehaviour
 
 	private GameObject __objectTouched;
 
+	private Vector3 prevMousePos;
+	private bool moved;
+	public float SqrTapPrecision = 0.01f;
+	private float Timer = 0;
+	public float MaxTapTime = 0.3f;
+
 	public static event Action<InteractionType> OnInteraction;
 
 	public static InteractionManager instance { get; private set; }
@@ -33,22 +39,49 @@ public class InteractionManager : MonoBehaviour
 				Touch t = Input.GetTouch(0);
 				Debug.Log(t.phase);
 				if (t.phase == TouchPhase.Began)
+				{
+					Timer = 0;
+					moved = false;
 					GetObjectTouched(t.position);
-				else if (t.phase == TouchPhase.Moved)
-					Moved(t.position);
-				else if (t.phase == TouchPhase.Ended)
-					Tapped(t.position);
+				}
+				else
+				{
+					Timer += Time.deltaTime;
+					moved = moved || t.deltaPosition.sqrMagnitude > SqrTapPrecision
+								  || Timer > MaxTapTime;
+					if (t.phase == TouchPhase.Moved && !moved)
+					{
+						Moved(t.position);
+					}
+					else if (t.phase == TouchPhase.Ended)
+					{
+						Tapped(t.position);
+					}
+				}
 			}
 		}
 		else
 #endif
 		{
-			if (Input.GetMouseButtonDown(0))			
-				GetObjectTouched(Input.mousePosition);			
-			else if (Input.GetMouseButtonUp(0))
-				Tapped(Input.mousePosition);
-			else if (Input.GetMouseButton(0))
-				Moved(Input.mousePosition);
+			if (Input.GetMouseButtonDown(0))
+			{
+				moved = false;
+				Timer = 0;
+				GetObjectTouched(Input.mousePosition);
+			}
+			else
+			{
+				Timer += Time.deltaTime;
+				moved = moved || (prevMousePos - Input.mousePosition).sqrMagnitude > SqrTapPrecision
+							  || Timer > MaxTapTime;
+				
+				if (Input.GetMouseButtonUp(0) && !moved)
+					Tapped(Input.mousePosition);
+				else if (Input.GetMouseButton(0))
+					Moved(Input.mousePosition);
+			}
+
+			prevMousePos = Input.mousePosition;
 		}
 	}
 
