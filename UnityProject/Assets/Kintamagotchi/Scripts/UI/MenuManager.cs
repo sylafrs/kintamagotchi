@@ -164,15 +164,47 @@ public class MenuManager : MonoBehaviour
 
 	public void DropItem()
 	{
-		//raycast verif emplacement
-		mItemGrab.GetComponent<Items>().Use();
+		GameObject obj;
+
+		obj = InteractionManager.instance.FindObjectTouched(GetMousePosition());
+		if (obj)
+		{
+			if (CheckItemToCollider(obj) && mItemGrab.GetComponent<Items>().CanUse())
+			{
+				GameData.Get.DecreaseCountItem(mItemGrab.GetComponent<Items>().ItemDesc);
+			}
+		}
 		mItemGrab = null;
 		InteractionManager.instance.enabled = true;
-		Debug.Log("itemDrop");
 	}
 #endregion
 
 #region Implementations
+	private bool CheckItemToCollider(GameObject obj)
+	{
+		ItemDesc itemDesc = mItemGrab.GetComponent<Items>().ItemDesc;
+		switch (itemDesc.Type)
+		{
+			case TypeItem.Consommable:
+				if (obj.CompareTag("Player"))
+					return true;
+				break;
+			case TypeItem.Assurance:
+				if (obj.CompareTag("Player"))
+					return true;
+				break;
+			case TypeItem.Meuble:
+				cObject cObj = obj.GetComponent<cObject>();
+				if (!cObj)
+					break;
+				if (itemDesc.Slots.Contains(cObj.pType))
+					return true;
+				break;
+			default:
+				break;
+		}
+		return false;
+	}
 	private Vector3 GetMousePosition()
 	{
 #if !FORCE_MOUSE

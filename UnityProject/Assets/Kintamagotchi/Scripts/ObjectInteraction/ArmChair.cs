@@ -12,7 +12,7 @@ public class ArmChair : cObject
 	}
 	
 	public override void OnTapped()
-	{		
+	{
 		if (!hasActivatedObject)
 			return;
 		base.OnTapped();

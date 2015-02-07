@@ -100,8 +100,26 @@ public class InteractionManager : MonoBehaviour
 		}
 	}
 
+	public GameObject FindObjectTouched(Vector3 pMousePos)
+	{
+		GameObject ret = null;
+
+		pMousePos.z = this.camera.nearClipPlane;
+		pMousePos = this.camera.ScreenToWorldPoint(pMousePos);
+
+		Ray ray = new Ray(this.transform.position, pMousePos - this.transform.position);
+		RaycastHit hit;
+		if (Physics.Raycast(ray, out hit))
+			ret = hit.collider.gameObject;
+		else
+			ret = null;
+		return ret;
+	}
+
 	void GetObjectTouched(Vector3 pMousePos)
 	{
+		GameObject ret = null;
+
 		pMousePos.z = this.camera.nearClipPlane;
 		pMousePos = this.camera.ScreenToWorldPoint(pMousePos);
 

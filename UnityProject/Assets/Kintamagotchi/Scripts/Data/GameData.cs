@@ -123,5 +123,17 @@ public class GameData : MonoBehaviour
 			}
 		}
 	}
+
+	public void DecreaseCountItem(ItemDesc item)
+	{
+		foreach (GameDataItem it in Data.Inventory)
+		{
+			if (it.ItemDetail == item)
+			{
+				it.Number--;
+				return;
+			}
+		}
+	}
 #endregion
 }

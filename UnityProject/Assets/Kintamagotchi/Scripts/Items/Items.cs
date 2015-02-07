@@ -35,9 +35,10 @@ public class Items : MonoBehaviour
 #endregion
 
 #region Methods
-	public void Use()
+	public bool Use()
 	{
 		Debug.Log(ItemDesc.Name);
+		return true;
 	}
 #endregion
 

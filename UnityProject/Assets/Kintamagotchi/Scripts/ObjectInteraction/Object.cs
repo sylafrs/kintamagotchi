@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum eObjectType
+{
+	_NO_TYPE_ = 0,
+	_BED_,
+	_WARDROBE_,
+	_SPEAKER_,
+	_ARMCHAIR_
+}
+
 public class cObject : MonoBehaviour 
 {
-    protected enum eObjectType
-    {
-        _NO_TYPE_ = 0,
-        _BED_,
-        _WARDROBE_,
-		_SPEAKER_,
-		_ARMCHAIR_
-    };
-
+	public eObjectType pType { get { return _pType; } }
     protected eObjectType _pType;
     protected Monster _monsterScript;
 
