@@ -1,11 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+
+public enum InteractionType
+{
+	MOVED,
+	TAPPED
+}
 
 public class InteractionManager : MonoBehaviour
 {
 	private Vector3 test;
 
 	private GameObject __objectTouched;
+
+	public static event Action<InteractionType> OnInteraction;
 
 	public static InteractionManager instance { get; private set; }
 
@@ -52,6 +61,10 @@ public class InteractionManager : MonoBehaviour
 		{
 			test = hit.point;
 			hit.collider.gameObject.SendMessage("OnTapped", hit.point, SendMessageOptions.DontRequireReceiver);
+
+
+			if (OnInteraction != null)
+				OnInteraction(InteractionType.TAPPED);
 		}
 	}
 
@@ -63,6 +76,9 @@ public class InteractionManager : MonoBehaviour
 			pMousePos = this.camera.ScreenToWorldPoint(pMousePos);
 			//GameObject.FindGameObjectWithTag("Player").SendMessage("OnTapped", Vector3.zero, SendMessageOptions.DontRequireReceiver);
 			__objectTouched.SendMessage("OnMoved", pMousePos, SendMessageOptions.DontRequireReceiver);
+
+			if (OnInteraction != null)
+				OnInteraction(InteractionType.MOVED);
 		}
 	}
 

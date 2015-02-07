@@ -6,6 +6,7 @@
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using System;
 
 //******************************************************************************
 public class GameData : MonoBehaviour
@@ -20,10 +21,13 @@ public class GameData : MonoBehaviour
 	[System.Serializable]
 	public class SaveData
 	{
-		public int			Level = 1;
-		public float		Exp = 0;
-		public int			Diamonds = 25;
-		public List<Item>	Inventory;
+		public int							Level = 1;
+		public float						Exp = 0;
+		public int							Diamonds = 25;
+		public Dictionary<string, DateTime> EventChecks;
+		public List<Item>					Inventory;
+		public float						MoralLastInteraction = 0;
+		public float						Moral = 0.4f;
 	}
 
 #region Static
