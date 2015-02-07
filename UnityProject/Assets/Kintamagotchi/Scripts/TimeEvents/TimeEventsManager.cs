@@ -62,9 +62,9 @@ public class TimeEventsManager : MonoBehaviour {
 						e.Launch();
 					}
 				}
-
-				eCheck.LastCheckTime = e.GetLastCheck(i, lastCheck);
 			}
+
+			eCheck.LastCheckTime = e.GetLastCheck(count, lastCheck);
 		}
 	}	
 
