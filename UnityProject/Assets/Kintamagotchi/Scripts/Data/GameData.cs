@@ -11,10 +11,18 @@ using System.Collections.Generic;
 public class GameData : MonoBehaviour
 {
 	[System.Serializable]
+	public struct Item
+	{
+		public ItemDesc		ItemDetail;
+		public int			Number;
+	}
+
+	[System.Serializable]
 	public class SaveData
 	{
-		public int			Data1 = 1;
-		public int			Data2 = 1;
+		public int			Level = 1;
+		public float		Exp = 0;
+		public List<Item>	Inventory;
 	}
 
 #region Static
@@ -35,7 +43,6 @@ public class GameData : MonoBehaviour
 			DestroyImmediate(this.gameObject, true);
 			return;
 		}
-		
 		DontDestroyOnLoad (this);
 		mInstance = this;
 		Load();
