@@ -7,13 +7,16 @@ public class cObject : MonoBehaviour
     {
         _NO_TYPE_ = 0,
         _BED_,
-        _TV_
+        _WARDROBE_,
+		_SPEAKER_,
+		_ARMCHAIR_
     };
 
     protected eObjectType _pType;
     protected Monster _monsterScript;
 
     public Transform defaultMonsterPosition;
+	public bool	hasActivatedObject = false;
 
 	// Use this for initialization
 	protected void Start () 

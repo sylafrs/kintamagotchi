@@ -12,6 +12,8 @@ public class Bed : cObject
 
     public override void OnTapped()
     {
+		if (!hasActivatedObject)
+			return;
         base.OnTapped();
     }
 }
