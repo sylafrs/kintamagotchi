@@ -106,7 +106,7 @@ public class GameData : MonoBehaviour
 	public void AddItem(GameDataItem item)
 	{
 		if (GameData.Get.Data.Inventory == null)
-			Data.Inventory = new List<Item>();
+			Data.Inventory = new List<GameDataItem>();
 		Data.Inventory.Add(item);
 	}
 
