@@ -23,6 +23,8 @@ public class ItemDesc
 	public string	Desc;
 	public int		Price;
 	public TypeItem	Type;
+	public float	Morale;
+	public float	XP;
 }
 
 [System.Serializable]

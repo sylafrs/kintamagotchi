@@ -9,11 +9,18 @@ public class TimeEventsManager : MonoBehaviour {
 
 	public TimeEvent[]	Events		{ get; private set; }
 	public DateTime		LastCheck	{ get; private set; }
+
+	public bool DebugMode;
 	
 	private void Awake()
 	{
 		Events		= this.GetComponents<TimeEvent>();
-		InvokeRepeating("Check", 0, 600);
+
+		float refresh = 600; // 10 min
+		if (DebugMode)
+			refresh = 1; // 1 s
+
+		InvokeRepeating("Check", 0, refresh);
 	}
 
 	public EventCheck HasEvent(List<EventCheck> events, string name)
