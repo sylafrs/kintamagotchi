@@ -25,13 +25,14 @@ public class GameDataItem
 [System.Serializable]
 public class SaveData
 {
-	public int Level = 1;
-	public float Exp = 0;
-	public int Diamonds = 25;
-	public List<EventCheck> EventChecks = new List<EventCheck>();
-	public List<GameDataItem> Inventory;
-	public float MoralLastInteraction = 0;
-	public float Moral = 0.4f;
+	public int					Level = 1;
+	public float				Exp = 0;
+	public int					Diamonds = 25;
+	public List<EventCheck>		EventChecks = new List<EventCheck>();
+	public List<GameDataItem>	Inventory;
+	public float				MoralLastInteraction = 0;
+	public float				Moral = 0.4f;
+
 	public EventCheck GetEventCheckByName(string name)
 	{
 		foreach (EventCheck e in EventChecks)
