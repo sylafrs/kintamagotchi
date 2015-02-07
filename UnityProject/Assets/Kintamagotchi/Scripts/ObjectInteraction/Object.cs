@@ -13,7 +13,7 @@ public class Object : MonoBehaviour
     protected eObjectType _pType;
     protected Monster _monsterScript;
 
-    public Transform defaultMonsterMosition;
+    public Transform defaultMonsterPosition;
 
 	// Use this for initialization
 	protected void Start () 
@@ -25,6 +25,6 @@ public class Object : MonoBehaviour
     public virtual void OnTapped()
     {
         Debug.Log(_pType);
-        _monsterScript.MoveTo(defaultMonsterMosition.position);
+        _monsterScript.MoveTo(defaultMonsterPosition.position);
     }
 }
