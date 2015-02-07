@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bed : Object 
+public class Bed : cObject 
 {
     // Use this for initialization
     void Start()

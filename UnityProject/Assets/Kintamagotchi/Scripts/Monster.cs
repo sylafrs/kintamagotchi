@@ -4,6 +4,7 @@ using System.Collections;
 public class Monster : MonoBehaviour
 {
 	public Transform target;
+	private PlayMakerFSM __fsm;
 
 	void Start()
 	{
@@ -11,6 +12,7 @@ public class Monster : MonoBehaviour
 		InteractionManager.OnInteraction += OnInteraction;
 
 		target.position = this.transform.position;
+		__fsm = GetComponent<PlayMakerFSM>();
 	}
 
 	public void OnTapped()
@@ -27,6 +29,8 @@ public class Monster : MonoBehaviour
 	public void MoveTo(Vector3 pPosition)
 	{
 		target.position = pPosition;
+		if (__fsm)
+			__fsm.Fsm.Event("isMoving");
 	}
 
 	private void OnInteraction(InteractionType obj)

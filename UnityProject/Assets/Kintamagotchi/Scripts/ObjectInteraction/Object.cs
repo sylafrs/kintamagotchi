@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Object : MonoBehaviour 
+public class cObject : MonoBehaviour 
 {
     protected enum eObjectType
     {
