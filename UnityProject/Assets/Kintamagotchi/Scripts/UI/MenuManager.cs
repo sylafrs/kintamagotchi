@@ -124,8 +124,8 @@ public class MenuManager : MonoBehaviour
 #region Implementations
 	private bool BuyItem()
 	{
-		GameData.Item	item;
-		int				diamonds = GameData.Get.Data.Diamonds;
+		GameDataItem	item;
+		int		diamonds = GameData.Get.Data.Diamonds;
 
 		if (diamonds < mItemToBuy.Price)
 			return false;
@@ -145,7 +145,7 @@ public class MenuManager : MonoBehaviour
 		else
 		{
 			GameData.Get.Data.Diamonds = diamonds - mItemToBuy.Price;
-			item = new GameData.Item();
+			item = new GameDataItem();
 			item.ItemDetail = mItemToBuy;
 			item.Number = 1;
 			GameData.Get.AddItem(item);
