@@ -16,4 +16,11 @@ public class ItemUIShopValue : MonoBehaviour
 	public Image	Sprite;
 
 #endregion
+
+#region Methods
+	public void BuyItem()
+	{
+		ShopManager.Get.BuyItem(Name.text);
+	}
+#endregion
 }

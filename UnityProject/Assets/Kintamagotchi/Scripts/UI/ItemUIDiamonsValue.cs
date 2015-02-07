@@ -7,13 +7,11 @@ using UnityEngine.UI;
 using System.Collections;
 
 //******************************************************************************
-public class ItemUIInventoryValue : MonoBehaviour 
+public class ItemUIDiamonsValue : MonoBehaviour 
 {
 #region Script Parameters
 	public Text		Name;
-	public Text		Count;
-	public Text		Desc;
-	public Image	Sprite;
+	public Text		Price;
 #endregion
 
 #region Methods

@@ -22,6 +22,7 @@ public class GameData : MonoBehaviour
 	{
 		public int			Level = 1;
 		public float		Exp = 0;
+		public int			Diamonds = 25;
 		public List<Item>	Inventory;
 	}
 
