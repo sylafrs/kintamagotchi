@@ -5,6 +5,8 @@ public class InteractionManager : MonoBehaviour
 {
 	public Vector3 test;
 
+    private GameObject __objectTouched;
+
 	public void Update()
 	{
 #if !FORCE_MOUSE
@@ -14,10 +16,12 @@ public class InteractionManager : MonoBehaviour
 			{
 				Touch t = Input.GetTouch(0);
 				Debug.Log(t.phase);
-				if (t.phase == TouchPhase.Ended)
-				{
+                if (t.phase == TouchPhase.Began)
+                    GetObjectTouched(t.position);
+                else if (t.phase == TouchPhase.Moved)
+                    Moved(t.position);
+				else if (t.phase == TouchPhase.Ended)
 					Tapped(t.position);
-				}
 			}
 		}
 		else
@@ -43,6 +47,30 @@ public class InteractionManager : MonoBehaviour
 			hit.collider.gameObject.SendMessage("OnTapped", hit.point, SendMessageOptions.DontRequireReceiver);
 		}
 	}
+
+    void    Moved(Vector3 pMousePos)
+    {
+        if (__objectTouched)
+        {
+            pMousePos.z = __objectTouched.transform.position.z;
+            pMousePos = this.camera.ScreenToWorldPoint(pMousePos);
+            //GameObject.FindGameObjectWithTag("Player").SendMessage("OnTapped", Vector3.zero, SendMessageOptions.DontRequireReceiver);
+            __objectTouched.SendMessage("OnMoved", pMousePos, SendMessageOptions.DontRequireReceiver);
+        }
+    }
+
+    void    GetObjectTouched(Vector3 pMousePos)
+    {
+        pMousePos.z = this.camera.nearClipPlane;
+        pMousePos = this.camera.ScreenToWorldPoint(pMousePos);
+
+        Ray ray = new Ray(this.transform.position, pMousePos - this.transform.position);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+            __objectTouched = hit.collider.gameObject;
+        else
+            __objectTouched = null;
+    }
 
 	void OnDrawGizmos()
 	{

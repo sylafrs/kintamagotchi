@@ -15,8 +15,13 @@ public class Monster : MonoBehaviour
 		this.transform.FindChild("Cube").renderer.material.color = Utils.RandomColor();
 	}
 
-	public void MoveTo(Vector3 position)
+    public void OnMoved(Vector3 pPosition)
+    {
+        transform.position = pPosition;
+    }
+
+	public void MoveTo(Vector3 pPosition)
 	{
-        target.position = position;
+        target.position = pPosition;
 	}
 }
