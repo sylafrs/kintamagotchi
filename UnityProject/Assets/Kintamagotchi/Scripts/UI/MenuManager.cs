@@ -167,6 +167,7 @@ public class MenuManager : MonoBehaviour
 		//raycast verif emplacement
 		mItemGrab.GetComponent<Items>().Use();
 		mItemGrab = null;
+		InteractionManager.instance.enabled = true;
 		Debug.Log("itemDrop");
 	}
 #endregion
