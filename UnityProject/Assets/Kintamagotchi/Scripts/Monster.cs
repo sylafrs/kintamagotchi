@@ -24,13 +24,16 @@ public class Monster : MonoBehaviour
 	{
 		target.position = pPosition;
 		transform.position = pPosition;
+
+		if (__fsm)
+			__fsm.Fsm.Event("selected");
 	}
 
 	public void MoveTo(Vector3 pPosition)
 	{
 		target.position = pPosition;
 		if (__fsm)
-			__fsm.Fsm.Event("isMoving");
+			__fsm.Fsm.Event("startsMoving");
 	}
 
 	private void OnInteraction(InteractionType obj)

@@ -10,7 +10,7 @@ public enum InteractionType
 
 public class InteractionManager : MonoBehaviour
 {
-	private Vector3 test;
+	private Vector3 gizmosPosition;
 
 	private GameObject __objectTouched;
 
@@ -43,10 +43,8 @@ public class InteractionManager : MonoBehaviour
 		else
 #endif
 		{
-			if (Input.GetMouseButtonDown(0))
-			{
-				GetObjectTouched(Input.mousePosition);
-			}
+			if (Input.GetMouseButtonDown(0))			
+				GetObjectTouched(Input.mousePosition);			
 			else if (Input.GetMouseButtonUp(0))
 				Tapped(Input.mousePosition);
 			else if (Input.GetMouseButton(0))
@@ -56,20 +54,24 @@ public class InteractionManager : MonoBehaviour
 
 	void Tapped(Vector3 mousePos)
 	{
-		mousePos.z = this.camera.nearClipPlane;
-		mousePos = this.camera.ScreenToWorldPoint(mousePos);
+		
+			mousePos.z = this.camera.nearClipPlane;
+			mousePos = this.camera.ScreenToWorldPoint(mousePos);
 
-		Ray ray = new Ray(this.transform.position, mousePos - this.transform.position);
-		RaycastHit hit;
-		if (Physics.Raycast(ray, out hit))
-		{
-			test = hit.point;
-			hit.collider.gameObject.SendMessage("OnTapped", hit.point, SendMessageOptions.DontRequireReceiver);
+			Ray ray = new Ray(this.transform.position, mousePos - this.transform.position);
+			RaycastHit hit;
+			if (Physics.Raycast(ray, out hit))
+			{
+				gizmosPosition = hit.point;
 
-
-			if (OnInteraction != null)
-				OnInteraction(InteractionType.TAPPED);
-		}
+				if (__objectTouched == hit.collider.gameObject)
+				{
+					hit.collider.gameObject.SendMessage("OnTapped", hit.point, SendMessageOptions.DontRequireReceiver);
+					
+					if (OnInteraction != null)
+						OnInteraction(InteractionType.TAPPED);
+				}
+			}
 	}
 
 	void Moved(Vector3 pMousePos)
@@ -81,16 +83,19 @@ public class InteractionManager : MonoBehaviour
 
 			Ray ray = new Ray(this.transform.position, pMousePos - this.transform.position);
 			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit, this.camera.farClipPlane, ~(1 << 8)))
+			if (Physics.Raycast(ray, out hit, this.camera.farClipPlane, ~(1<<8)))
 			{
-				test = hit.point;
-				if (hit.transform.CompareTag("Ground"))
-				{
-					__objectTouched.SendMessage("OnMoved", hit.point, SendMessageOptions.DontRequireReceiver);
+				Vector3 point = hit.point;
+				point.y = 0;
+
+				gizmosPosition = point;
+				//if (hit.transform.CompareTag("Ground"))
+				//{
+					__objectTouched.SendMessage("OnMoved", point, SendMessageOptions.DontRequireReceiver);
 			
 					if (OnInteraction != null)
 						OnInteraction(InteractionType.MOVED);
-				}
+				//}
 			}
 		}
 	}
@@ -111,6 +116,6 @@ public class InteractionManager : MonoBehaviour
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawSphere(test, 1);
+		Gizmos.DrawSphere(gizmosPosition, 1);
 	}
 }

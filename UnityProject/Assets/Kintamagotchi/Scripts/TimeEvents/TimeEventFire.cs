@@ -23,6 +23,6 @@ public class TimeEventFire : TimeEvent
 
 	public override DateTime GetLastCheck(int i, DateTime last)
 	{
-		return last.AddHours(i);
+		return last.AddHours(i * 24);
 	}
 }
