@@ -129,17 +129,7 @@ public class PanelGenerator : MonoBehaviour
 
 	void SetParent(GameObject obj, Transform parent)
 	{
-		Vector3 position;
-		Quaternion rotation;
-		Vector3 scale;
-
-		position = obj.transform.position;
-		rotation = obj.transform.rotation;
-		scale = obj.transform.localScale;
 		obj.transform.parent = parent;
-		obj.transform.localPosition = position;
-		obj.transform.localRotation = rotation;
-		obj.transform.localScale = scale;
 	}
 #endregion
 }
