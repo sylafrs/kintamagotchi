@@ -21,6 +21,7 @@ public class PanelGenerator : MonoBehaviour
 #region Script Parameters
 	public List<Canvas> ItemsList;
 	public ItemShop		ItemsShop;
+	public Scrollbar	ScrollBar;
 	public TypePanel	Type;
 #endregion
 
@@ -50,7 +51,6 @@ public class PanelGenerator : MonoBehaviour
 		{
 			Destroy(child.gameObject);
 		}
-		transform.DetachChildren();
 	}
 #endregion
 
