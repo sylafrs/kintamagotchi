@@ -129,7 +129,7 @@ public class PanelGenerator : MonoBehaviour
 
 	void SetParent(GameObject obj, Transform parent)
 	{
-		obj.transform.parent = parent;
+		obj.transform.SetParent(parent, false);
 	}
 #endregion
 }
