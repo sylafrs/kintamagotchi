@@ -40,7 +40,7 @@ public class InteractionManager : MonoBehaviour
 		if (Physics.Raycast(ray, out hit))
 		{
 			test = hit.point;
-			hit.collider.gameObject.SendMessage("OnInteraction", hit.point, SendMessageOptions.DontRequireReceiver);
+			hit.collider.gameObject.SendMessage("OnTapped", hit.point, SendMessageOptions.DontRequireReceiver);
 		}
 	}
 
