@@ -68,6 +68,7 @@ public class MenuManager : MonoBehaviour
 
 	void Update()
 	{
+		ChecksInteractionPossibility();
 		playSound();
 		UpdateDiamonds();
 		UpdateExp();
@@ -130,9 +131,6 @@ public class MenuManager : MonoBehaviour
 	public void ChecksInteractionPossibility()
 	{
 		InteractionManager.instance.enabled = !PanelGlobal.activeSelf &&
-											  !PanelInventory.activeSelf &&
-											  !PanelShop.activeSelf &&
-											  !PanelDiamonds.activeSelf &&
 											  !MessageBox.gameObject.activeSelf &&
 											  !DialogBox.gameObject.activeSelf &&
 											  !PanelCheat.gameObject.activeSelf;
