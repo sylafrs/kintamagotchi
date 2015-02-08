@@ -57,6 +57,8 @@ public class GameData : MonoBehaviour
 #region Fields
 	// Public ------------------------------------------------------------------
 	public SaveData		Data;
+
+	public GameObject[] Slots;
 #endregion
 
 #region Unity Methods
@@ -79,6 +81,30 @@ public class GameData : MonoBehaviour
 
 #endregion
 
+#region Properties
+	public int MaxExp
+	{
+		get
+		{
+			switch (Data.Level)
+			{
+				case 1:
+					return 150;
+				case 2:
+					return 175;
+				case 3:
+					return 200;
+				case 4:
+					return 225;
+				case 6:
+					return 250;
+			}
+
+			return 250;
+		}
+	}
+#endregion
+
 #region Methods
 	public void Load()
 	{
@@ -91,6 +117,8 @@ public class GameData : MonoBehaviour
 		{
 			Data = new SaveData();
 		}
+
+		this.LoadItems();
 	}
 
 	public void Save()
@@ -99,11 +127,21 @@ public class GameData : MonoBehaviour
 		Serialization.ToFile<SaveData>(Data, dataPath);
 	}
 
-	public GameDataItem GetItem(string name)
+	public ItemDesc GetItem(string name)
 	{
 		if (GameData.Get.Data.Inventory == null)
 			return null;
-		return Data.Inventory.Find(x => x.ItemDetail.Name.Equals(name));
+
+		GameDataItem item = Data.Inventory.Find(x => x.ItemDetail.Name.Equals(name));
+		if(item != null)	
+			return item.ItemDetail;
+		
+		List<Item> itemsInScene = new List<Item>(GameObject.FindObjectsOfType<Item>());
+		Item itemInScene = itemsInScene.Find(x => x.ItemDesc.Name.Equals(name));
+		if (itemInScene != null)
+			return itemInScene.ItemDesc;
+
+		return null;
 	}
 
 	public void AddItem(GameDataItem item)
@@ -113,11 +151,11 @@ public class GameData : MonoBehaviour
 		Data.Inventory.Add(item);
 	}
 
-	public void UpdateCountItem(GameDataItem item)
+	public void UpdateCountItem(ItemDesc item)
 	{
 		foreach (GameDataItem it in Data.Inventory)
 		{
-			if (it.ItemDetail == item.ItemDetail)
+			if (it.ItemDetail == item)
 			{
 				it.Number++;
 				return;
@@ -140,30 +178,7 @@ public class GameData : MonoBehaviour
 			}
 		}
 	}
-#endregion
-
-	public int MaxExp
-	{
-		get
-		{
-			switch (Data.Level)
-			{
-				case 1:
-					return 150;
-				case 2:
-					return 175;
-				case 3:
-					return 200;
-				case 4:
-					return 225;
-				case 6:
-					return 250;
-			}
-
-			return 250;
-		}
-	}
-
+	
 	public void CheckXP()
 	{
 		while (Data.Exp > MaxExp)
@@ -190,4 +205,27 @@ public class GameData : MonoBehaviour
 			// HAPPY ! :D
 		}
 	}
+
+	private void LoadItems()
+	{
+		ItemDesc itemDesc;
+		GameObject mItemGrab;
+		ItemShop shop = this.GetComponent<ItemShop>();
+		Item item;
+		for (int i = 0; i < this.Data.Spots.Length; i++ )
+		{
+			string name = this.Data.Spots[i];
+			if(!string.IsNullOrEmpty(name))
+			{
+				mItemGrab = GameObject.Instantiate(Resources.Load("Prefabs/Item/Cube")) as GameObject;
+				itemDesc = shop.GetItem(name);
+				item = mItemGrab.GetComponent<Item>();
+				item.ItemDesc = itemDesc;
+				item.usedSlot = (eObjectType)(i + 1);
+				item.PlaceToSlot(Slots[i]);
+			}
+		}			
+	}
+
+#endregion
 }
