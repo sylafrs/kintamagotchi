@@ -15,7 +15,8 @@ public enum FX
 	TouchedChester,
 	Fire,
 	Xp,
-	Moral
+	Moral,
+	TouchedSpeaker
 }
 
 public class FxManager : MonoBehaviour

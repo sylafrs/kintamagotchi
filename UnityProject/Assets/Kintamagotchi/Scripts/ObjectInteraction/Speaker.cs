@@ -5,6 +5,7 @@ using System;
 public class Speaker : cObject 
 {
 	// Use this for initialization
+	public Transform	FxPosition;
 	void Start()
 	{
 		base.Start();
@@ -21,7 +22,7 @@ public class Speaker : cObject
 			GameData.Get.Data.Moral += 10;
 			GameData.Get.Data.LastSpeakerTime = DateTime.Now;
 		}
-
+		FxManager.Get.Play(FX.TouchedSpeaker, FxPosition);
 		base.OnTapped();
 	}
 }
