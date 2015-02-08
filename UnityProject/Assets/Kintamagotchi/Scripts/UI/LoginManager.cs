@@ -12,6 +12,7 @@ public class LoginManager : MonoBehaviour
 #region Script Parameters
 	public InputField		Num;
 	public InputField		Mdp;
+	public Button			LoginButton;
 #endregion
 
 #region Static
@@ -27,6 +28,13 @@ public class LoginManager : MonoBehaviour
 #endregion
 
 #region Unity Methods
+	void Update()
+	{
+		if (Num.text.Length == 11 && Mdp.text.Length == 6)
+			LoginButton.interactable = true;
+		else
+			LoginButton.interactable = false;
+	}
 #endregion
 
 #region Methods
