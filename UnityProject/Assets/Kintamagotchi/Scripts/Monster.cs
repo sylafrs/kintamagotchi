@@ -10,7 +10,7 @@ public class Monster : MonoBehaviour
 	private AudioSource	__actualSound;
 	private AudioClip __nextSound;
 	public float	fadeSpeed = 0.1f;
-
+	public float	defaultVolume = 1f;
 	void Awake()
 	{
 		this.target = GameObject.Find("Target").transform;
@@ -96,7 +96,10 @@ public class Monster : MonoBehaviour
 	{
 		__actualSound.volume -= Time.deltaTime * fadeSpeed;
 		if (__actualSound.volume <= 0.0f)
+		{
+			__actualSound.Stop();
 			return true;
+		}
 		return false;
 	}
 
@@ -106,7 +109,7 @@ public class Monster : MonoBehaviour
 			fade();
 		if (__actualSound.volume <= 0.0f || !__actualSound.isPlaying)
 		{
-			__actualSound.volume = 1.0f;
+			__actualSound.volume = defaultVolume;
 			__actualSound.clip = __nextSound;
 			__nextSound = null;
 			__actualSound.Play();
