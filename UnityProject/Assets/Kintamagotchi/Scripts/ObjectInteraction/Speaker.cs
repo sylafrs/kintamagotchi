@@ -24,7 +24,6 @@ public class Speaker : cObject
 		}
 
 		Monster.instance.SendEvent("OnDance");
-
 		FxManager.Get.Play(FX.TouchedSpeaker, FxPosition);
 		base.OnTapped();
 	}
