@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: fa5ef8206b227164fa4c2f549780f7df
-=======
 guid: da2913d7fe06fda439e2f45382ed3b53
->>>>>>> 2e178672754c339f11e388d450dabfbabff8c0d9
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -1283,11 +1279,7 @@ ModelImporter:
     4300002: Ball
     4300004: RatonEye
     4300006: pasted__Lit
-<<<<<<< HEAD
-    7400000: Take 001
-=======
     7400000: Sleep
->>>>>>> 2e178672754c339f11e388d450dabfbabff8c0d9
     9500000: //RootNode
     13700000: Ball
     13700002: RatonBody
@@ -1307,9 +1299,6 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-<<<<<<< HEAD
-    clipAnimations: []
-=======
     clipAnimations:
     - serializedVersion: 16
       name: Sleep
@@ -2607,7 +2596,6 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
->>>>>>> 2e178672754c339f11e388d450dabfbabff8c0d9
     isReadable: 1
   meshes:
     lODScreenPercentages: []

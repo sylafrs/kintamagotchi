@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: ae9bacbd958396849b703e1d829e9a4d
-=======
 guid: 9dadf544eddf2d94a9461b2f08dfda0b
->>>>>>> 2e178672754c339f11e388d450dabfbabff8c0d9
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -1276,11 +1272,7 @@ ModelImporter:
     4300000: RatonBody
     4300002: Ball
     4300004: RatonEye
-<<<<<<< HEAD
-    7400000: Take 001
-=======
     7400000: Dance
->>>>>>> 2e178672754c339f11e388d450dabfbabff8c0d9
     9500000: //RootNode
     13700000: Ball
     13700002: RatonBody
@@ -1300,9 +1292,6 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-<<<<<<< HEAD
-    clipAnimations: []
-=======
     clipAnimations:
     - serializedVersion: 16
       name: Dance
@@ -2596,7 +2585,6 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
->>>>>>> 2e178672754c339f11e388d450dabfbabff8c0d9
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 544e91433ae3aac4788a1b1c0f07f18e
-=======
 guid: 20460daa5b1e334429c085860b58b6ec
->>>>>>> 2e178672754c339f11e388d450dabfbabff8c0d9
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -1278,11 +1274,7 @@ ModelImporter:
     4300000: RatonBody
     4300002: Ball
     4300004: RatonEye
-<<<<<<< HEAD
-    7400000: Take 001
-=======
     7400000: AssisCanape
->>>>>>> 2e178672754c339f11e388d450dabfbabff8c0d9
     9500000: //RootNode
     13700000: Ball
     13700002: RatonBody
@@ -1302,9 +1294,6 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-<<<<<<< HEAD
-    clipAnimations: []
-=======
     clipAnimations:
     - serializedVersion: 16
       name: AssisCanape
@@ -2600,7 +2589,6 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
->>>>>>> 2e178672754c339f11e388d450dabfbabff8c0d9
     isReadable: 1
   meshes:
     lODScreenPercentages: []
