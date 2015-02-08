@@ -51,7 +51,7 @@ public class Item : MonoBehaviour
 		}
 	}
 
-	protected void Remove()
+	public void Remove()
 	{
 		GameObject.Destroy(this.gameObject);
 		GameData.Get.Data.Spots[(int)this.usedSlot - 1] = null;
@@ -64,6 +64,7 @@ public class Item : MonoBehaviour
 
 		GameData.Get.CheckXP();
 		GameData.Get.CheckMorale();
+		FxManager.Get.Play(FX.Moral, Monster.instance.fxPosition);
 	}
 
 	public virtual void PlaceToSlot(GameObject slot)
@@ -76,13 +77,13 @@ public class Item : MonoBehaviour
 		slot.GetComponent<cObject>().hasActivatedObject = true;
 	}
 
-	public void Accident()
+	public void Fire()
 	{
 		if (GameData.Get.Data.MaterialAssurance)
 		{
 			GameData.Get.Data.Diamonds += this.ItemDesc.Price;
 		}
-
-		this.Remove();
+		GameObject fire = FxManager.Get.Play(FX.Fire, transform);
+		fire.transform.localScale = Vector3.one;
 	}
 }

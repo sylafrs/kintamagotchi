@@ -336,7 +336,7 @@ public class MenuManager : MonoBehaviour
 
 	private void UpdateExp()
 	{
-		Exp.value = GameData.Get.Data.Exp;
+		Exp.value = GameData.Get.Data.Exp / (float)GameData.Get.MaxExp;
 	}
 
 	private void ClearPopup()

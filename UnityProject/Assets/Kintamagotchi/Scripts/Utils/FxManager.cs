@@ -46,18 +46,19 @@ public class FxManager : MonoBehaviour
 #endregion
 	
 #region Methods
-	public void Play(FX fx, Transform target)
+	public GameObject Play(FX fx, Transform target)
 	{
 		var instance = Instantiate(FX[(int)fx]) as GameObject;
 		instance.transform.parent = target;
 		instance.transform.localPosition = Vector3.zero;
 		instance.transform.localRotation = Quaternion.identity;
 		instance.SetActive(true);
+		return instance;
 	}
 
-	public void Play(FX fx, Component target)
+	public GameObject Play(FX fx, Component target)
 	{
-		Play(fx, target.transform);
+		return Play(fx, target.transform);
 	}
 
 	public GameObject Play(FX fx, Vector3 position, Quaternion rotation)
