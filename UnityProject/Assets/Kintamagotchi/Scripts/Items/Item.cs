@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
 
 	public virtual bool CanUse { get { return true; } }
 
-	public virtual void Use()
+	public virtual void Use(eObjectType slotUsed)
 	{
 		GameData.Get.Data.Exp	+= ItemDesc.XP;
 		GameData.Get.Data.Moral += 0.01f * ItemDesc.Morale;

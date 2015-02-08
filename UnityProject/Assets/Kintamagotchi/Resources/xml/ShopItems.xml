@@ -1,103 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfItemDesc>
-
-<ItemDesc>
-<Name>Bon poulet</Name>
-<Sprite>UISprite</Sprite>
-<Desc>Nourris-le</Desc>
-<Price>5</Price>
-<Type>Consommable</Type>
-<Morale>10</Morale>
-<Xp>10</Xp>
-</ItemDesc>
-
-<ItemDesc>
-<Name>Brosse</Name>
-<Sprite>UISprite</Sprite>
-<Desc>Brosse-le</Desc>
-<Price>10</Price>
-<Type>Consommable</Type>
-<Morale>20</Morale>
-<Xp>20</Xp>
-</ItemDesc>
-
-<ItemDesc>
-<Name>Balle</Name>
-<Sprite>UISprite</Sprite>
-<Desc>Joue avec lui</Desc>
-<Price>10</Price>
-<Type>Consommable</Type>
-<Morale>20</Morale>
-<Xp>20</Xp>
-</ItemDesc>
-
-<ItemDesc>
-<Name>Fauteuil</Name>
-<Sprite>UISprite</Sprite>
-<Desc>Hmmm confortable</Desc>
-<Price>20</Price>
-<Type>Meuble</Type>
-<Morale>25</Morale>
-<Xp>25</Xp>
-</ItemDesc>
-
-<ItemDesc>
-<Name>Antibiotique</Name>
-<Sprite>UISprite</Sprite>
-<Desc>Soigne-le</Desc>
-<Price>20</Price>
-<Morale>0</Morale>
-<Xp>0</Xp>
-</ItemDesc>
-
-<ItemDesc>
-<Name>Armoire</Name>
-<Sprite>UISprite</Sprite>
-<Desc>Occupation saine</Desc>
-<Price>30</Price>
-<Type>Meuble</Type>
-<Morale>40</Morale>
-<Xp>40</Xp>
-</ItemDesc>
-
-<ItemDesc>
-<Name>Lit</Name>
-<Sprite>UISprite</Sprite>
-<Desc>Dormir c'est bien</Desc>
-<Price>50</Price>
-<Type>Meuble</Type>
-<Morale>50</Morale>
-<Xp>50</Xp>
-</ItemDesc>    
-
-<ItemDesc>
-<Name>Enceinte</Name>
-<Sprite>UISprite</Sprite>
-<Desc>Danse et bouge</Desc>
-<Price>50</Price>
-<Type>Meuble</Type>
-<Morale>50</Morale>
-<Xp>50</Xp>
-</ItemDesc>    
-
-<ItemDesc>
-<Name>Mutuelle santé</Name>
-<Sprite>UISprite</Sprite>
-<Desc>Prévenir est mieux que guérir</Desc>
-<Price>100</Price>
-<Type>Assurance</Type>
-<Morale>0</Morale>
-<Xp>0</Xp>
-</ItemDesc>
-
-<ItemDesc>
-<Name>Assurance habitation</Name>
-<Sprite>UISprite</Sprite>
-<Desc>Protège sa maison</Desc>
-<Price>100</Price>
-<Type>Assurance</Type>
-<Morale>0</Morale>
-<Xp>0</Xp>
-</ItemDesc>
-
+  <ItemDesc>
+    <Name>Bon poulet</Name>
+    <Sprite>UISprite</Sprite>
+    <Desc>Nourris-le</Desc>
+    <Price>5</Price>
+    <Type>Consommable</Type>
+    <Slots/>
+    <Morale>10</Morale>
+    <Xp>10</Xp>
+  </ItemDesc>
+  <ItemDesc>
+    <Name>Brosse</Name>
+    <Sprite>UISprite</Sprite>
+    <Desc>Brosse-le</Desc>
+    <Price>10</Price>
+    <Type>Consommable</Type>
+    <Slots/>
+    <Morale>20</Morale>
+    <Xp>20</Xp>
+  </ItemDesc>
+  <ItemDesc>
+    <Name>Balle</Name>
+    <Sprite>UISprite</Sprite>
+    <Desc>Joue avec lui</Desc>
+    <Price>10</Price>
+    <Type>Consommable</Type>
+    <Slots/>
+    <Morale>20</Morale>
+    <Xp>20</Xp>
+  </ItemDesc>
+  <ItemDesc>
+    <Name>Fauteuil</Name>
+    <Sprite>UISprite</Sprite>
+    <Desc>Hmmm confortable</Desc>
+    <Price>20</Price>
+    <Type>Meuble</Type>
+    <Slots>
+      <eObjectType>_ARMCHAIR_</eObjectType>
+    </Slots>
+    <Morale>25</Morale>
+    <Xp>25</Xp>
+  </ItemDesc>
+  <ItemDesc>
+    <Name>Antibiotique</Name>
+    <Sprite>UISprite</Sprite>
+    <Desc>Soigne-le</Desc>
+    <Price>20</Price>
+    <Slots/>
+    <Morale>0</Morale>
+    <Xp>0</Xp>
+  </ItemDesc>
+  <ItemDesc>
+    <Name>Armoire</Name>
+    <Sprite>UISprite</Sprite>
+    <Desc>Occupation saine</Desc>
+    <Price>30</Price>
+    <Type>Meuble</Type>
+    <Slots>
+      <eObjectType>_WARDROBE_</eObjectType>
+    </Slots>
+    <Morale>40</Morale>
+    <Xp>40</Xp>
+  </ItemDesc>
+  <ItemDesc>
+    <Name>Lit</Name>
+    <Sprite>UISprite</Sprite>
+    <Desc>Dormir c'est bien</Desc>
+    <Price>50</Price>
+    <Type>Meuble</Type>
+    <Slots>
+      <eObjectType>_BED_</eObjectType>
+    </Slots>
+    <Morale>50</Morale>
+    <Xp>50</Xp>
+  </ItemDesc>
+  <ItemDesc>
+    <Name>Enceinte</Name>
+    <Sprite>UISprite</Sprite>
+    <Desc>Danse et bouge</Desc>
+    <Price>50</Price>
+    <Type>Meuble</Type>
+    <Slots>
+      <eObjectType>_SPEAKER_</eObjectType>
+    </Slots>
+    <Morale>50</Morale>
+    <Xp>50</Xp>
+  </ItemDesc>
+  <ItemDesc>
+    <Name>Mutuelle santé</Name>
+    <Sprite>UISprite</Sprite>
+    <Desc>Prévenir est mieux que guérir</Desc>
+    <Price>100</Price>
+    <Type>Assurance</Type>
+    <Slots/>
+    <Morale>0</Morale>
+    <Xp>0</Xp>
+  </ItemDesc>
+  <ItemDesc>
+    <Name>Assurance habitation</Name>
+    <Sprite>UISprite</Sprite>
+    <Desc>Protège sa maison</Desc>
+    <Price>100</Price>
+    <Type>Assurance</Type>
+    <Slots/>
+    <Morale>0</Morale>
+    <Xp>0</Xp>
+  </ItemDesc>
 </ArrayOfItemDesc>

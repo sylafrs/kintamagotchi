@@ -18,14 +18,14 @@ public enum TypeItem
 [System.Serializable]
 public class ItemDesc
 {
-	public eObjectType [] Slots;
-	public string	Name;
-	public string	Sprite;
-	public string	Desc;
-	public int		Price;
-	public TypeItem	Type;
-	public int		Morale;
-	public int		XP;
+	public string			Name;
+	public string			Sprite;
+	public string			Desc;
+	public int				Price;
+	public TypeItem			Type;
+	public eObjectType[]	Slots;
+	public int				Morale;
+	public int				XP;
 }
 
 [System.Serializable]

@@ -32,7 +32,7 @@ public class SaveData
 	public List<GameDataItem>	Inventory;
 	public float				MoralLastInteraction = 0;
 	public float				Moral = 0.4f;
-	public int []				Spots = new int[4] {-1, -1, -1, -1};
+	public string[]				Spots = new string[4];
 
 	public EventCheck GetEventCheckByName(string name)
 	{

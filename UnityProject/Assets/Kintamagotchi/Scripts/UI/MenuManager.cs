@@ -164,16 +164,26 @@ public class MenuManager : MonoBehaviour
 
 	public void DropItem()
 	{
+		cObject cObj;
 		GameObject obj;
-
+		
 		obj = InteractionManager.instance.FindObjectTouched(GetMousePosition());
 		if (obj)
 		{
-			if (CheckItemToCollider(obj) && mItemGrab.GetComponent<Item>().CanUse)
+			Item i = mItemGrab.GetComponent<Item>();
+	
+			if (CheckItemToCollider(obj) && i.CanUse)
 			{
-				GameData.Get.DecreaseCountItem(mItemGrab.GetComponent<Item>().ItemDesc);
+				eObjectType typeSlot = eObjectType._NO_TYPE_;
+				if (cObj = obj.GetComponent<cObject>())
+					typeSlot = cObj.pType;				
+
+				i.Use(typeSlot);
+				GameData.Get.DecreaseCountItem(i.ItemDesc);
 			}
+			
 		}
+
 		mItemGrab = null;
 		InteractionManager.instance.enabled = true;
 	}
