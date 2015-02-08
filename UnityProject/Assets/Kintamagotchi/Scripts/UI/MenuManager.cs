@@ -11,20 +11,22 @@ using System.Collections.Generic;
 public class MenuManager : MonoBehaviour 
 {
 #region Script Parameters
-	public GameObject	PanelShop;
-	public GameObject	PanelInventory;
-	public GameObject	PanelDiamonds;
-	public GameObject	PanelGlobal;
-	public Button		ButtonInventory;
-	public Button		ButtonShop;
-	public ItemShop		ItemsShop;
-	public BoxUI		DialogBox;
-	public BoxUI		MessageBox;
-	public Text			DiamondsLabel;
-	public GameObject	ImgMaladie;
-	public GameObject	ImgHabitation;
-	public Slider		Exp;
-	public GameObject[]	SlotsRenderer = new GameObject[4];
+	public GameObject		PanelShop;
+	public GameObject		PanelInventory;
+	public GameObject		PanelDiamonds;
+	public GameObject		PanelGlobal;
+	public Button			ButtonInventory;
+	public Button			ButtonShop;
+	public ItemShop			ItemsShop;
+	public BoxUI			DialogBox;
+	public BoxUI			MessageBox;
+	public Text				DiamondsLabel;
+	public GameObject		ImgMaladie;
+	public GameObject		ImgHabitation;
+	public Slider			Exp;
+	public GameObject[]		SlotsRenderer = new GameObject[4];
+	public float			FadeSpeed = 0.1f;
+	public List<AudioClip>	ClipList;
 #endregion
 
 #region Static
@@ -37,6 +39,8 @@ public class MenuManager : MonoBehaviour
 	private DiamondsDesc	mDiamondsToBuy;
 	private GameObject		mItemGrab = null;
 	private bool			mDropItem = true;
+	private AudioSource		mActualSound;
+	private AudioClip		mNextClip;
 	private const string	CONFIRMATION_MSG = "Voulez-vous vraiment acheter ";
 	private const string	ERROR_MSG = "Solde insuffisant";
 	private const string	ALREADY_BUY = "Objet déjà acheté";
@@ -56,12 +60,14 @@ public class MenuManager : MonoBehaviour
 
 	void Start()
 	{
+		mActualSound = GetComponent<AudioSource>();
 		UpdateDiamonds();
 		UpdateExp();
 	}
 
 	void Update()
 	{
+		playSound();
 		UpdateDiamonds();
 		UpdateExp();
 		if (mItemGrab)
@@ -109,6 +115,7 @@ public class MenuManager : MonoBehaviour
 		}
 		if (PanelGlobal.activeSelf)
 		{
+			mNextClip = ClipList[0];
 			PanelShop.SetActive(false);
 			PanelDiamonds.SetActive(true);
 			PanelInventory.SetActive(false);
@@ -127,6 +134,7 @@ public class MenuManager : MonoBehaviour
 		}
 		if(PanelGlobal.activeSelf)
 		{
+			mNextClip = ClipList[0];
 			ShowInventory();
 		}
 	}
@@ -293,6 +301,7 @@ public class MenuManager : MonoBehaviour
 				GameData.Get.Data.Diamonds = diamonds - mItemToBuy.Price;
 				GameData.Get.UpdateCountItem(item);
 				UpdateDiamonds();
+				mNextClip = ClipList[1];
 			}
 			else
 				MessageBox.SetTextAndShow(ALREADY_BUY);
@@ -305,6 +314,7 @@ public class MenuManager : MonoBehaviour
 			newItem.Number = 1;
 			GameData.Get.AddItem(newItem);
 			UpdateDiamonds();
+			mNextClip = ClipList[1];
 		}
 		return true;
 	}
@@ -315,6 +325,7 @@ public class MenuManager : MonoBehaviour
 
 		GameData.Get.Data.Diamonds += mDiamondsToBuy.Value;
 		UpdateDiamonds();
+		mNextClip = ClipList[2];
 		return true;
 	}
 
@@ -345,7 +356,29 @@ public class MenuManager : MonoBehaviour
 			else
 				obj.renderer.enabled = false;
 		}
+	}
+	bool fade()
+	{
+		mActualSound.volume -= Time.deltaTime * FadeSpeed;
+		if (mActualSound.volume <= 0.0f)
+		{
+			mActualSound.Stop();
+			return true;
+		}
+		return false;
+	}
 
+	private void playSound()
+	{
+		if (mActualSound.isPlaying)
+			fade();
+		if (mActualSound.volume <= 0.0f || !mActualSound.isPlaying)
+		{
+			mActualSound.volume = 1.0f;
+			mActualSound.clip = mNextClip;
+			mNextClip = null;
+			mActualSound.Play();
+		}
 	}
 
 	public void ShowMaladie()
