@@ -132,6 +132,10 @@ public class GameData : MonoBehaviour
 			if (it.ItemDetail == item)
 			{
 				it.Number--;
+				if (it.Number == 0)
+				{
+					Data.Inventory.Remove(it);
+				}
 				return;
 			}
 		}

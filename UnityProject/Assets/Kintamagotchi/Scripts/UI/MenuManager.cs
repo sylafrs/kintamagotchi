@@ -177,13 +177,14 @@ public class MenuManager : MonoBehaviour
 				eObjectType typeSlot = eObjectType._NO_TYPE_;
 				if (cObj = obj.GetComponent<cObject>())
 					typeSlot = cObj.pType;				
-
 				i.Use(typeSlot);
 				GameData.Get.DecreaseCountItem(i.ItemDesc);
+				mItemGrab = null;
+				InteractionManager.instance.enabled = true;
+				return;
 			}
-			
 		}
-
+		Destroy(mItemGrab);
 		mItemGrab = null;
 		InteractionManager.instance.enabled = true;
 	}
