@@ -2612,7 +2612,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 1
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     human: []
     skeleton: []
@@ -2623,8 +2623,9 @@ ModelImporter:
     armStretch: .0500000007
     legStretch: .0500000007
     feetSpacing: 0
-    rootMotionBoneName: 
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+    rootMotionBoneName: TSMG_root
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 314007e82870da346b3d4a9daadb0af9,
+    type: 3}
   animationType: 2
   additionalBone: 0
   userData: 

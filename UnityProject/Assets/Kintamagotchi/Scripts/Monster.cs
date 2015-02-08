@@ -59,6 +59,8 @@ public class Monster : MonoBehaviour
 			GameData.Get.Data.LastCoinTime = DateTime.Now;
 			FxManager.Get.Play(FX.Diamonds, fxPosition);
 		}
+
+		SendEvent("OnJoy");
 	}
 
 
@@ -66,8 +68,7 @@ public class Monster : MonoBehaviour
 	{
 		target.position = pPosition;
 		transform.position = pPosition;
-		if (__fsm)
-			__fsm.Fsm.Event("selected");
+		SendEvent("Selected");
 		if (Random.Range(0, 30) == 15)
 			__nextSound = clipList[1];
 	}
@@ -75,8 +76,7 @@ public class Monster : MonoBehaviour
 	public void MoveTo(Vector3 pPosition)
 	{
 		target.position = pPosition;
-		if (__fsm)
-			__fsm.Fsm.Event("startsMoving");
+		SendEvent("WantsToMove");
 		__nextSound = clipList[2];
 	}
 
@@ -145,4 +145,10 @@ public class Monster : MonoBehaviour
 	}
 
 	#endregion
+	
+	public void SendEvent(string p)
+	{
+		if (__fsm)
+			__fsm.Fsm.Event(p);
+	}
 }
