@@ -3,8 +3,13 @@ using System.Collections;
 
 public class Monster : MonoBehaviour
 {
-	public Transform target;
+	private Transform target;
 	private PlayMakerFSM __fsm;
+
+	void Awake()
+	{
+		this.target = GameObject.Find("Target").transform;
+	}
 
 	void Start()
 	{
