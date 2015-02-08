@@ -79,6 +79,14 @@ public class GameData : MonoBehaviour
 		Save();
 	}
 
+	void OnApplicationPause(bool pause)
+	{
+#if (UNITY_IPHONE || UNITY_ANDROID)
+		if (pause)
+			Save();
+#endif
+	}
+
 #endregion
 
 #region Properties
