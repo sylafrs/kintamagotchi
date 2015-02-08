@@ -30,7 +30,23 @@ public class TimeEventFire : TimeEvent
 		{
 			i.Accident();
 		}
+
+		MenuManager.Get.MessageBox.OnValidated += OnPopupValidated;
+		if(GameData.Get.Data.MaterialAssurance)
+		{
+			MenuManager.Get.MessageBox.SetTextAndShow("Tout a brûlé !!! :( Heureusement, vous avez une assurance habitation :)");
+		}
+		else
+		{
+			MenuManager.Get.MessageBox.SetTextAndShow("Tout a brûlé !!! :( Avec une assurance habitation, vous auriez pu tout racheter ");
+		}
+
 		GameData.Get.Data.MaterialAssurance = false;
+	}
+
+	public void OnPopupValidated()
+	{
+		MenuManager.Get.MessageBox.OnValidated -= OnPopupValidated;
 	}
 
 	public override int MustCheck(TimeSpan dt)

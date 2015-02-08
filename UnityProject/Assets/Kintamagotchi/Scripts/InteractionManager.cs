@@ -49,13 +49,14 @@ public class InteractionManager : MonoBehaviour
 					Timer += Time.deltaTime;
 					moved = moved || t.deltaPosition.sqrMagnitude > SqrTapPrecision
 								  || Timer > MaxTapTime;
-					if (t.phase == TouchPhase.Moved && !moved)
-					{
-						Moved(t.position);
-					}
-					else if (t.phase == TouchPhase.Ended)
+					
+					if (t.phase == TouchPhase.Ended && !moved)
 					{
 						Tapped(t.position);
+					}
+					else if (t.phase == TouchPhase.Moved && moved)
+					{
+						Moved(t.position);
 					}
 				}
 			}
@@ -77,7 +78,7 @@ public class InteractionManager : MonoBehaviour
 				
 				if (Input.GetMouseButtonUp(0) && !moved)
 					Tapped(Input.mousePosition);
-				else if (Input.GetMouseButton(0))
+				else if (Input.GetMouseButton(0) && moved)
 					Moved(Input.mousePosition);
 			}
 

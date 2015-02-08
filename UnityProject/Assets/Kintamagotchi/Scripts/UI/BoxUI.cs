@@ -24,6 +24,8 @@ public class BoxUI : MonoBehaviour
 
 #region Methods
 
+	public event System.Action OnValidated;
+
 	public void SetTextAndShow(string text)
 	{
 		Message.text = text;
@@ -34,6 +36,9 @@ public class BoxUI : MonoBehaviour
 	{
 		MenuManager.Get.ValidatedBuy();
 		this.gameObject.SetActive(false);
+		
+		if (OnValidated != null)
+			OnValidated();
 	}
 
 	public void Cancel()

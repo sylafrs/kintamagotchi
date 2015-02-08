@@ -83,6 +83,7 @@ public class Monster : MonoBehaviour
 
 	public void	OnLvlUp()
 	{
+		MenuManager.Get.MessageBox.SetTextAndShow("Félicitations ! Votre ami a évolué grâce à vos efforts !!");
 		__nextSound = clipList[5];
 		FxManager.Get.Play(FX.LevelUP, fxPosition);
 	}
