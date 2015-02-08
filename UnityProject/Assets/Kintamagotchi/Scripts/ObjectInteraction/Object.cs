@@ -19,6 +19,8 @@ public class cObject : MonoBehaviour
     public Transform defaultMonsterPosition;
 	public bool	hasActivatedObject = false;
 
+	public GameObject[] Cartons;
+
 	// Use this for initialization
 	protected void Start () 
     {

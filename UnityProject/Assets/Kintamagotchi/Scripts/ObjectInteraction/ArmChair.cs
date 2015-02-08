@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ArmChair : cObject 
 {
@@ -15,6 +16,13 @@ public class ArmChair : cObject
 	{
 		if (!hasActivatedObject)
 			return;
+
+		if ((DateTime.Now - GameData.Get.Data.LastArmChairTime).TotalMinutes >= 15)
+		{
+			GameData.Get.Data.Moral += 5;
+			GameData.Get.Data.LastArmChairTime = DateTime.Now;
+		}
+
 		base.OnTapped();
 	}
 }

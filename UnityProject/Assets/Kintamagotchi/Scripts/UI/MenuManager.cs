@@ -15,6 +15,7 @@ public class MenuManager : MonoBehaviour
 	public GameObject		PanelInventory;
 	public GameObject		PanelDiamonds;
 	public GameObject		PanelGlobal;
+	public GameObject		PanelCheat;
 	public Button			ButtonInventory;
 	public Button			ButtonShop;
 	public ItemShop			ItemsShop;
@@ -128,11 +129,12 @@ public class MenuManager : MonoBehaviour
 	public void ChecksInteractionPossibility()
 	{
 		InteractionManager.instance.enabled = !PanelGlobal.activeSelf &&
-											  !PanelInventory.activeSelf && 
+											  !PanelInventory.activeSelf &&
 											  !PanelShop.activeSelf &&
 											  !PanelDiamonds.activeSelf &&
 											  !MessageBox.gameObject.activeSelf &&
-											  !DialogBox.gameObject.activeSelf ;
+											  !DialogBox.gameObject.activeSelf;//&&
+											 // !PanelCheat.gameObject.activeSelf;
 	}
 
 	public void SwitchVisibility()
@@ -205,6 +207,13 @@ public class MenuManager : MonoBehaviour
 				if(i.ItemDesc.Type != TypeItem.Meuble)
 				{
 					GameObject.Destroy(mItemGrab);
+				}
+				else
+				{
+					foreach (GameObject carton in cObj.Cartons)
+					{
+						carton.renderer.enabled = false;
+					}
 				}
 
 				mItemGrab = null;
@@ -351,16 +360,44 @@ public class MenuManager : MonoBehaviour
 		DialogBox.gameObject.SetActive(false);
 	}
 
-	private void ShowSlot(ItemDesc item = null)
+	public void ShowSlot(ItemDesc item = null)
 	{
 		foreach (GameObject obj in SlotsRenderer)
 		{
-			if (item != null && item.Type == TypeItem.Meuble && item.Slots.Contains(obj.GetComponent<cObject>().pType))
+			cObject o = obj.GetComponent<cObject>();
+			if (item != null && item.Type == TypeItem.Meuble && item.Slots.Contains(o.pType))
 				obj.renderer.enabled = true;
 			else
 				obj.renderer.enabled = false;
+
+			if (item != null)
+			{
+				foreach (GameObject carton in o.Cartons)
+				{
+					carton.renderer.enabled = !obj.renderer.enabled && !HasItemAt(o);
+				}
+			}
+			else
+			{
+				foreach (GameObject carton in o.Cartons)
+				{
+					carton.renderer.enabled = !HasItemAt(o);
+				}
+			}
 		}
+		
 	}
+
+	private bool HasItemAt(cObject o)
+	{
+		int type = (int)o.pType;
+		if (type == 0)
+			return false;
+
+		return GameData.Get.Data.Spots[type - 1] != null;
+	}
+
+
 	bool fade()
 	{
 		mActualSound.volume -= Time.deltaTime * FadeSpeed;
@@ -394,6 +431,12 @@ public class MenuManager : MonoBehaviour
 	{
 		ImgHabitation.SetActive(!ImgHabitation.activeSelf);
 	}
+
+	public void ToogleCheatMenu()
+	{
+
+	}
+
 #endregion
 
 	

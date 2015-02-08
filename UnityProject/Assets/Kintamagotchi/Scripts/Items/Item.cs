@@ -55,6 +55,15 @@ public class Item : MonoBehaviour
 	{
 		GameObject.Destroy(this.gameObject);
 		GameData.Get.Data.Spots[(int)this.usedSlot - 1] = null;
+		
+		cObject o = MenuManager.Get.SlotsRenderer[(int)this.usedSlot - 1].GetComponent<cObject>();
+		if(o)
+		{
+			foreach (GameObject carton in o.Cartons)
+			{
+				carton.renderer.enabled = true;
+			}
+		}
 	}
 
 	protected void UpdateStatus()

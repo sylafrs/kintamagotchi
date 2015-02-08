@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Speaker : cObject 
 {
@@ -14,6 +15,13 @@ public class Speaker : cObject
 	{
 		if (!hasActivatedObject)
 			return;
+
+		if ((DateTime.Now - GameData.Get.Data.LastSpeakerTime).TotalHours >= 1)
+		{
+			GameData.Get.Data.Moral += 10;
+			GameData.Get.Data.LastSpeakerTime = DateTime.Now;
+		}
+
 		base.OnTapped();
 	}
 }

@@ -25,18 +25,22 @@ public class GameDataItem
 [System.Serializable]
 public class SaveData
 {
-	public int					Level = 1;
-	public int					Exp = 0;
-	public int					Diamonds = 25;
-	public List<EventCheck>		EventChecks = new List<EventCheck>();
+	public int					Level					= 1;
+	public int					Exp						= 0;
+	public int					Diamonds				= 25;
+	public List<EventCheck>		EventChecks				= new List<EventCheck>();
 	public List<GameDataItem>	Inventory;
-	public float				MoralLastInteraction = 0;
-	public float				Moral = 0.4f;
-	public string[]				Spots = new string[4];
-	public int					SicknessAssurance = 0;
-	public bool					MaterialAssurance = false;
-	public bool					IsSick = false;
-	public DateTime				LastCoinTime = DateTime.MinValue;
+	public float				MoralLastInteraction	= 0;
+	public float				Moral					= 0.4f;
+	public string[]				Spots					= new string[4];
+	public int					SicknessAssurance		= 0;
+	public bool					MaterialAssurance		= false;
+	public bool					IsSick					= false;
+	public DateTime				LastCoinTime			= DateTime.MinValue;
+	public DateTime				LastArmChairTime		= DateTime.MinValue;
+	public DateTime				LastBedTime				= DateTime.MinValue;
+	public DateTime				LastSpeakerTime			= DateTime.MinValue;
+	public DateTime				LastWardRobeTime		= DateTime.MinValue;
 
 	public EventCheck GetEventCheckByName(string name)
 	{
@@ -131,6 +135,10 @@ public class GameData : MonoBehaviour
 		}
 
 		this.LoadItems();
+
+		MenuManager.Get.ImgMaladie.SetActive(GameData.Get.Data.MaterialAssurance);
+		MenuManager.Get.ImgHabitation.SetActive(GameData.Get.Data.MaterialAssurance);
+
 	}
 
 	public void Save()
@@ -240,6 +248,11 @@ public class GameData : MonoBehaviour
 				item.ItemDesc = itemDesc;
 				item.usedSlot = (eObjectType)(i + 1);
 				item.PlaceToSlot(Slots[i]);
+
+				foreach (GameObject carton in MenuManager.Get.SlotsRenderer[i].GetComponent<cObject>().Cartons)
+				{
+					carton.renderer.enabled = false;
+				}
 			}
 		}			
 	}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Wardrobe : cObject
 {
@@ -14,6 +15,13 @@ public class Wardrobe : cObject
 	{
 		if (!hasActivatedObject)
 			return;
+
+		if ((DateTime.Now - GameData.Get.Data.LastWardRobeTime).TotalHours >= 1)
+		{
+			GameData.Get.Data.Moral += 15;
+			GameData.Get.Data.LastWardRobeTime = DateTime.Now;
+		}
+
 		base.OnTapped();
 	}
 }
