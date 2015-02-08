@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DateTime=System.DateTime;
 
 public class Monster : MonoBehaviour
 {
@@ -41,7 +42,15 @@ public class Monster : MonoBehaviour
 	{
 		//this.transform.FindChild("Cube").renderer.material.color = Utils.RandomColor();
 		__nextSound = clipList[0];
+
+		if((DateTime.Now - GameData.Get.Data.LastCoinTime).TotalHours > 12)
+		{
+			GameData.Get.Data.Diamonds += 10;
+			__nextSound = clipList[9];
+			GameData.Get.Data.LastFoodTime = DateTime.Now;
+		}
 	}
+
 
 	public void OnMoved(Vector3 pPosition)
 	{

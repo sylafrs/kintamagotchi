@@ -37,6 +37,7 @@ public class SaveData
 	public bool					MaterialAssurance = false;
 	public bool					IsSick = false;
 	public DateTime				LastFoodTime = DateTime.MinValue;
+	public DateTime				LastCoinTime = DateTime.MinValue;
 
 	public EventCheck GetEventCheckByName(string name)
 	{
