@@ -24,6 +24,7 @@ public class MenuManager : MonoBehaviour
 	public GameObject	ImgMaladie;
 	public GameObject	ImgHabitation;
 	public Slider		Exp;
+	public GameObject[]	SlotsRenderer = new GameObject[4];
 #endregion
 
 #region Static
@@ -160,13 +161,15 @@ public class MenuManager : MonoBehaviour
 		mItemGrab.GetComponent<Item>().ItemDesc = itemDesc;
 		mDropItem = false;
 		PanelGlobal.SetActive(false);
+		ShowSlot(itemDesc);
 	}
 
 	public void DropItem()
 	{
 		cObject cObj;
 		GameObject obj;
-		
+
+		ShowSlot();
 		obj = InteractionManager.instance.FindObjectTouched(GetMousePosition());
 		if (obj)
 		{
@@ -187,7 +190,6 @@ public class MenuManager : MonoBehaviour
 
 				mItemGrab = null;
 				InteractionManager.instance.enabled = true;
-
 				return;
 			}
 		}
@@ -331,6 +333,18 @@ public class MenuManager : MonoBehaviour
 		mDiamondsToBuy = null;
 		MessageBox.gameObject.SetActive(false);
 		DialogBox.gameObject.SetActive(false);
+	}
+
+	private void ShowSlot(ItemDesc item = null)
+	{
+		foreach (GameObject obj in SlotsRenderer)
+		{
+			if (item != null && item.Type == TypeItem.Meuble && item.Slots.Contains(obj.GetComponent<cObject>().pType))
+				obj.renderer.enabled = true;
+			else
+				obj.renderer.enabled = false;
+		}
+
 	}
 
 	public void ShowMaladie()
