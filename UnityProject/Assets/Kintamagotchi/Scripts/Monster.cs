@@ -8,6 +8,8 @@ public class Monster : MonoBehaviour
 	private PlayMakerFSM __fsm;
 	public List<AudioClip>	clipList;
 	private AudioSource	__actualSound;
+	private AudioClip __nextSound;
+	public float	fadeSpeed = 0.1f;
 
 	public static Monster instance { get; private set; }
 
@@ -25,12 +27,18 @@ public class Monster : MonoBehaviour
 		target.position = this.transform.position;
 		__fsm = GetComponent<PlayMakerFSM>();
 		__actualSound = GetComponent<AudioSource>();
+		__nextSound = null;
+	}
+
+	void	Update()
+	{
+		playSound();
 	}
 
 	public void OnTapped()
 	{
 		//this.transform.FindChild("Cube").renderer.material.color = Utils.RandomColor();
-		playSound(clipList[0]);
+		__nextSound = clipList[0];
 	}
 
 	public void OnMoved(Vector3 pPosition)
@@ -39,7 +47,8 @@ public class Monster : MonoBehaviour
 		transform.position = pPosition;
 		if (__fsm)
 			__fsm.Fsm.Event("selected");
-		playSound(clipList[1]);
+		if (Random.Range(0, 30) == 15)
+			__nextSound = clipList[1];
 	}
 
 	public void MoveTo(Vector3 pPosition)
@@ -47,37 +56,37 @@ public class Monster : MonoBehaviour
 		target.position = pPosition;
 		if (__fsm)
 			__fsm.Fsm.Event("startsMoving");
-		playSound(clipList[2]);
+		__nextSound = clipList[2];
 	}
 
 	public void	OnObjectDropped()
 	{
-		playSound(clipList[Random.Range(3, 4)]);
+		__nextSound = clipList[Random.Range(3, 4)];
 	}
 
 	public void	OnLvlUp()
 	{
-		playSound(clipList[5]);
+		__nextSound = clipList[5];
 	}
 
 	public void	OnIsHappy()
 	{
-		playSound(clipList[6]);
+		__nextSound = clipList[6];
 	}
 
 	public void	OnHappyBecauseNewMeubleAdded()
 	{
-		playSound(clipList[6]);
+		__nextSound = clipList[6];
 	}
 
 	public void	OnNeutral()
 	{
-		playSound(clipList[7]);
+		__nextSound = clipList[7];
 	}
 
 	public void	OnSad()
 	{
-		playSound(clipList[8]);
+		__nextSound = clipList[8];
 	}
 
 	private void OnInteraction(InteractionType obj)
@@ -89,15 +98,23 @@ public class Monster : MonoBehaviour
 
 	bool	fade()
 	{
-		return true;
+		__actualSound.volume -= Time.deltaTime * fadeSpeed;
+		if (__actualSound.volume <= 0.0f)
+			return true;
+		return false;
 	}
 
-	void	playSound(AudioClip pClip)
+	void	playSound()
 	{
 		if (__actualSound.isPlaying)
-			__actualSound.Stop ();
-		__actualSound.clip = pClip;
-		__actualSound.Play();
+			fade();
+		if (__actualSound.volume <= 0.0f || !__actualSound.isPlaying)
+		{
+			__actualSound.volume = 1.0f;
+			__actualSound.clip = __nextSound;
+			__nextSound = null;
+			__actualSound.Play();
+		}
 	}
 
 	#endregion
