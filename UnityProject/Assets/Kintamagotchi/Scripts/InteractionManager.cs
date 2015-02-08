@@ -151,8 +151,6 @@ public class InteractionManager : MonoBehaviour
 
 	void GetObjectTouched(Vector3 pMousePos)
 	{
-		GameObject ret = null;
-
 		pMousePos.z = this.camera.nearClipPlane;
 		pMousePos = this.camera.ScreenToWorldPoint(pMousePos);
 

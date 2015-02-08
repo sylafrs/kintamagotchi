@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Monster : MonoBehaviour
 {
-	public Transform target;
+	private Transform target;
 	private PlayMakerFSM __fsm;
 	public List<AudioClip>	clipList;
 	private AudioSource	__actualSound;
