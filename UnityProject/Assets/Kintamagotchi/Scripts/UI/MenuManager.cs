@@ -111,7 +111,6 @@ public class MenuManager : MonoBehaviour
 		if (!(PanelGlobal.activeSelf && (PanelShop.activeSelf || PanelInventory.activeSelf)))
 		{
 			PanelGlobal.SetActive(!PanelGlobal.activeSelf);
-			InteractionManager.instance.enabled = !PanelGlobal.activeSelf;
 		}
 		if (PanelGlobal.activeSelf)
 		{
@@ -123,6 +122,17 @@ public class MenuManager : MonoBehaviour
 			ButtonShop.gameObject.SetActive(false);
 		}
 		ClearPopup();
+		ChecksInteractionPossibility();
+	}
+
+	public void ChecksInteractionPossibility()
+	{
+		InteractionManager.instance.enabled = !PanelGlobal.activeSelf &&
+											  !PanelInventory.activeSelf && 
+											  !PanelShop.activeSelf &&
+											  !PanelDiamonds.activeSelf &&
+											  !MessageBox.gameObject.activeSelf &&
+											  !DialogBox.gameObject.activeSelf ;
 	}
 
 	public void SwitchVisibility()
@@ -130,13 +140,13 @@ public class MenuManager : MonoBehaviour
 		if (!(PanelGlobal.activeSelf  && PanelDiamonds.activeSelf))
 		{
 			PanelGlobal.SetActive(!PanelGlobal.activeSelf);
-			InteractionManager.instance.enabled = !PanelGlobal.activeSelf;
 		}
 		if(PanelGlobal.activeSelf)
 		{
 			mNextClip = ClipList[0];
 			ShowInventory();
 		}
+		ChecksInteractionPossibility();
 	}
 
 	public void BuyItem(string name, TypePanel type)
@@ -391,4 +401,6 @@ public class MenuManager : MonoBehaviour
 		ImgHabitation.SetActive(!ImgHabitation.activeSelf);
 	}
 #endregion
+
+	
 }

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public abstract class TimeEvent : MonoBehaviour 
 {
 	public List<AudioClip> clipList;
-	protected Stack<AudioClip> toListen = new Stack<AudioClip>();
+	protected Queue<AudioClip> toListen = new Queue<AudioClip>();
 	public float fadeSpeed;
 
 	/// <summary>
@@ -56,15 +56,28 @@ public abstract class TimeEvent : MonoBehaviour
 
 	protected void playSound()
 	{
-		 if (audio.isPlaying)
-		 	fade();
-		if (!audio.isPlaying)
+		if (audio.loop == false && audio.isPlaying)
 		{
-			audio.volume = 1.0f;
+			fade();
+		}
+
+		if(audio.loop == true && toListen.Count > 0)
+		{
+			AudioClip c = toListen.Dequeue();
+			audio.volume = 0.1f;
+			audio.clip = c;
+			this.OnAudioChanged(c);
+			audio.Play();
+		}
+
+		if (audio.volume <= 0.0f || !audio.isPlaying)
+		{
 			if (toListen.Count > 0)
 			{
-				audio.clip = toListen.Pop();
-				this.OnAudioChanged(audio.clip);
+				AudioClip c = toListen.Dequeue();
+				audio.volume = 0.1f;
+				audio.clip = c;
+				this.OnAudioChanged(c);
 				audio.Play();
 			}
 		}

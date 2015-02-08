@@ -16,6 +16,7 @@ public class ItemAssurance : Item
 	{
 		base.Use(slotUsed, slot);
 		GameData.Get.Data.MaterialAssurance = true;
+		MenuManager.Get.ImgHabitation.SetActive(true);
 	}
 	
 }

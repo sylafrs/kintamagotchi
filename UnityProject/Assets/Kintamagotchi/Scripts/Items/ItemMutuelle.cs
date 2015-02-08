@@ -18,10 +18,18 @@ public class ItemMutuelle : Item {
 		base.Use(slotUsed, slot);
 		GameData.Get.Data.SicknessAssurance += charges;
 
+		MenuManager.Get.ImgMaladie.SetActive(true);
+
 		if(GameData.Get.Data.IsSick)
 		{
 			GameData.Get.Data.SicknessAssurance--;
 			GameData.Get.Data.IsSick = false;
+
+			if(GameData.Get.Data.SicknessAssurance <= 0)
+			{
+				GameData.Get.Data.SicknessAssurance = 0;
+				MenuManager.Get.ImgMaladie.SetActive(true);
+			}
 		}
 	}
 }

@@ -30,6 +30,7 @@ public class BoxUI : MonoBehaviour
 	{
 		Message.text = text;
 		this.gameObject.SetActive(true);
+		MenuManager.Get.ChecksInteractionPossibility();
 	}
 
 	public void Validate()
@@ -39,6 +40,8 @@ public class BoxUI : MonoBehaviour
 		
 		if (OnValidated != null)
 			OnValidated();
+
+		MenuManager.Get.ChecksInteractionPossibility();
 	}
 
 	public void Cancel()

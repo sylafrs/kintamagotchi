@@ -17,7 +17,7 @@ public class TimeEventFire : TimeEvent
 			Debug.Log("Try chance");
 
 			if (DebugMode)
-				return 0.80f;
+				return 1;
 
 			return 0.05f; 
 		}
@@ -37,8 +37,8 @@ public class TimeEventFire : TimeEvent
 			i.Fire();
 		}
 
-		this.toListen.Push(clipList[0]);
-		this.toListen.Push(clipList[1]);
+		this.toListen.Enqueue(clipList[0]);
+		this.toListen.Enqueue(clipList[1]);
 
 		MenuManager.Get.MessageBox.OnValidated += OnPopupValidated;
 		if(GameData.Get.Data.MaterialAssurance)
@@ -62,7 +62,8 @@ public class TimeEventFire : TimeEvent
 			i.Remove();
 		}
 		OnFire = false;
-		this.toListen.Push(clipList[2]);
+		this.toListen.Enqueue(clipList[2]);
+		MenuManager.Get.ImgHabitation.SetActive(false);
 	}
 
 	public override int MustCheck(TimeSpan dt)
@@ -71,14 +72,15 @@ public class TimeEventFire : TimeEvent
 			return 0;
 
 		if(DebugMode)
-			return (int)dt.TotalSeconds / 1;
+			return 1;
+
 		return ((int)dt.TotalHours) / 24;
 	}
 
 	public override DateTime GetLastCheck(int i, DateTime last)
 	{
 		if (DebugMode)
-			return last.AddSeconds(i * 1);
+			return last.AddSeconds(i * 10);
 
 		return last.AddHours(i * 24);
 	}
