@@ -273,12 +273,6 @@ public class MenuManager : MonoBehaviour
 
 	private Vector3 GetMousePositionToWorld(Vector3 mousePos)
 	{
-		var obj = GameObject.FindGameObjectWithTag("Player");
-		if (!obj)
-		{
-			Debug.LogError("No gameObject with tag Player");
-			return Vector3.zero;
-		}
 		mousePos.z = Camera.main.nearClipPlane + 4f;
 		mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 		return mousePos;
