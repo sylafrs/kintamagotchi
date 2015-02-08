@@ -70,10 +70,14 @@ public class TimeEventFire : TimeEvent
 	{
 		if (OnFire)
 			return 0;
+		
+		Item[] items = GameObject.FindObjectsOfType<Item>();
+		if (items.Length == 0)
+			return 0;
 
 		if(DebugMode)
 			return 1;
-
+		
 		return ((int)dt.TotalHours) / 24;
 	}
 
