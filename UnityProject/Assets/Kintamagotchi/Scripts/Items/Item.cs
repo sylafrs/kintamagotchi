@@ -23,10 +23,14 @@ public class Item : MonoBehaviour
 			this.RemovePrevious(slotUsed);
 			GameData.Get.Data.Spots[(int)slotUsed - 1] = this.ItemDesc.Name;
 		}
+
+
 		if (ItemDesc.Type == TypeItem.Consommable || ItemDesc.Type == TypeItem.Assurance)
-			GameObject.FindObjectOfType<Monster>().OnObjectDropped();
+			Monster.instance.OnObjectDropped();
+		
 		if (ItemDesc.Type == TypeItem.Meuble)
-			GameObject.FindObjectOfType<Monster>().OnHappyBecauseNewMeubleAdded();
+			Monster.instance.OnHappyBecauseNewMeubleAdded();
+		
 		if(slot)
 			PlaceToSlot(slot);
 	}
@@ -41,10 +45,16 @@ public class Item : MonoBehaviour
 			{
 				if(items[i] != this && items[i].usedSlot == this.usedSlot)
 				{
-					GameObject.Destroy(items[i].gameObject);
+					items[i].Remove();
 				}
 			}
 		}
+	}
+
+	protected void Remove()
+	{
+		GameObject.Destroy(this.gameObject);
+		GameData.Get.Data.Spots[(int)this.usedSlot - 1] = null;
 	}
 
 	protected void UpdateStatus()
@@ -61,5 +71,15 @@ public class Item : MonoBehaviour
 		this.transform.position = slot.transform.position + slot.transform.up * offset;
 		this.transform.rotation = slot.transform.rotation;
 		this.transform.localScale = this.OriginalScale;
+	}
+
+	public void Accident()
+	{
+		if (GameData.Get.Data.MaterialAssurance)
+		{
+			GameData.Get.Data.Diamonds += this.ItemDesc.Price;
+		}
+
+		this.Remove();
 	}
 }

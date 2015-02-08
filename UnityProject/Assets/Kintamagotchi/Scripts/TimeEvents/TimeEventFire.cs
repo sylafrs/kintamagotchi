@@ -24,6 +24,13 @@ public class TimeEventFire : TimeEvent
 	public override void Launch()
 	{
 		Debug.Log("FIRE !");
+
+		Item[] items = GameObject.FindObjectsOfType<Item>();
+		foreach(Item i in items)
+		{
+			i.Accident();
+		}
+		GameData.Get.Data.MaterialAssurance = false;
 	}
 
 	public override int MustCheck(TimeSpan dt)

@@ -9,8 +9,11 @@ public class Monster : MonoBehaviour
 	public List<AudioClip>	clipList;
 	private AudioSource	__actualSound;
 
+	public static Monster instance { get; private set; }
+
 	void Awake()
 	{
+		instance = this;
 		this.target = GameObject.Find("Target").transform;
 	}
 
