@@ -240,6 +240,18 @@ public class MenuManager : MonoBehaviour
 	{
 		GameData.Get.GetComponent<TimeEventSickness>().Launch();
 	}
+
+	public void CheatReset()
+	{
+		GameData.Get.Data = new SaveData();
+		GameData.Get.Data.Spots = new string[4];
+		#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+		#else
+			Application.Quit();
+		#endif
+
+	}
 #endregion
 
 #region Implementations
