@@ -23,7 +23,10 @@ public class Item : MonoBehaviour
 			this.RemovePrevious(slotUsed);
 			GameData.Get.Data.Spots[(int)slotUsed - 1] = this.ItemDesc.Name;
 		}
-
+		if (ItemDesc.Type == TypeItem.Consommable || ItemDesc.Type == TypeItem.Assurance)
+			GameObject.FindObjectOfType<Monster>().OnObjectDropped();
+		if (ItemDesc.Type == TypeItem.Meuble)
+			GameObject.FindObjectOfType<Monster>().OnHappyBecauseNewMeubleAdded();
 		if(slot)
 			PlaceToSlot(slot);
 	}
