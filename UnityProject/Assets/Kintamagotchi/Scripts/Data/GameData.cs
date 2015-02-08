@@ -33,6 +33,11 @@ public class SaveData
 	public float				MoralLastInteraction = 0;
 	public float				Moral = 0.4f;
 	public string[]				Spots = new string[4];
+	public int					SicknessAssurance = 0;
+	public bool					MaterialAssurance = false;
+	public bool					IsSick = false;
+	public DateTime				LastFoodTime = DateTime.MinValue;
+	public DateTime				LastCoinTime = DateTime.MinValue;
 
 	public EventCheck GetEventCheckByName(string name)
 	{
@@ -193,7 +198,7 @@ public class GameData : MonoBehaviour
 		{
 			Data.Exp -= MaxExp;
 			Data.Level++;
-			GameObject.FindObjectOfType<Monster>().OnLvlUp();
+			Monster.instance.OnLvlUp();
 		}
 	}
 
@@ -204,17 +209,17 @@ public class GameData : MonoBehaviour
 		if(Data.Moral < 0.2f)
 		{
 			// SAD :'(
-			GameObject.FindObjectOfType<Monster>().OnSad();
+			Monster.instance.OnSad();
 		}
 		else if(Data.Moral < 0.45f)
 		{
 			// NEUTRAL :|
-			GameObject.FindObjectOfType<Monster>().OnNeutral();
+			Monster.instance.OnNeutral();
 		}
 		else
 		{
 			// HAPPY ! :D
-			GameObject.FindObjectOfType<Monster>().OnIsHappy();
+			Monster.instance.OnIsHappy();
 		}
 	}
 
@@ -229,7 +234,8 @@ public class GameData : MonoBehaviour
 			string name = this.Data.Spots[i];
 			if(!string.IsNullOrEmpty(name))
 			{
-				mItemGrab = GameObject.Instantiate(Resources.Load("Prefabs/Item/Cube")) as GameObject;
+				string prefabName = name.Replace(" ", "_").Replace("é", "e");
+				mItemGrab = GameObject.Instantiate(Resources.Load("Prefabs/Item/" + prefabName)) as GameObject;
 				itemDesc = shop.GetItem(name);
 				item = mItemGrab.GetComponent<Item>();
 				item.ItemDesc = itemDesc;
@@ -240,4 +246,5 @@ public class GameData : MonoBehaviour
 	}
 
 #endregion
+
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DateTime=System.DateTime;
 
 public class Monster : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class Monster : MonoBehaviour
 	private AudioClip __nextSound;
 	public float	fadeSpeed = 0.1f;
 
+	public static Monster instance { get; private set; }
+
+	public float	defaultVolume = 1f;
+
 	void Awake()
 	{
+		instance = this;
 		this.target = GameObject.Find("Target").transform;
 	}
 
@@ -36,7 +42,15 @@ public class Monster : MonoBehaviour
 	{
 		//this.transform.FindChild("Cube").renderer.material.color = Utils.RandomColor();
 		__nextSound = clipList[0];
+
+		if((DateTime.Now - GameData.Get.Data.LastCoinTime).TotalHours > 12)
+		{
+			GameData.Get.Data.Diamonds += 10;
+			__nextSound = clipList[9];
+			GameData.Get.Data.LastFoodTime = DateTime.Now;
+		}
 	}
+
 
 	public void OnMoved(Vector3 pPosition)
 	{
@@ -97,7 +111,10 @@ public class Monster : MonoBehaviour
 	{
 		__actualSound.volume -= Time.deltaTime * fadeSpeed;
 		if (__actualSound.volume <= 0.0f)
+		{
+			__actualSound.Stop();
 			return true;
+		}
 		return false;
 	}
 
@@ -107,7 +124,7 @@ public class Monster : MonoBehaviour
 			fade();
 		if (__actualSound.volume <= 0.0f || !__actualSound.isPlaying)
 		{
-			__actualSound.volume = 1.0f;
+			__actualSound.volume = defaultVolume;
 			__actualSound.clip = __nextSound;
 			__nextSound = null;
 			__actualSound.Play();
