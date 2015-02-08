@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Evenement générique
 /// </summary>
 public abstract class TimeEvent : MonoBehaviour 
 {
+	public List<AudioClip> clipList;
+	protected Queue<AudioClip> toListen = new Queue<AudioClip>();
+	public float fadeSpeed;
+
 	/// <summary>
 	/// Nom de l'event
 	/// </summary>
@@ -35,4 +40,58 @@ public abstract class TimeEvent : MonoBehaviour
 	/// <param name="last">Dernier check testé</param>
 	/// <returns>Le temps depuis le dernier check</returns>
 	public abstract DateTime GetLastCheck(int i, DateTime lastCheck);
+
+	#region Sound
+
+	protected bool fade()
+	{
+		audio.volume -= Time.deltaTime * fadeSpeed;
+		if (audio.volume <= 0.0f)
+		{
+			audio.Stop();
+			return true;
+		}
+		return false;
+	}
+
+	protected void playSound()
+	{
+		if (audio.loop == false && audio.isPlaying)
+		{
+			fade();
+		}
+
+		if(audio.loop == true && toListen.Count > 0)
+		{
+			AudioClip c = toListen.Dequeue();
+			audio.volume = 0.1f;
+			audio.clip = c;
+			this.OnAudioChanged(c);
+			audio.Play();
+		}
+
+		if (audio.volume <= 0.0f || !audio.isPlaying)
+		{
+			if (toListen.Count > 0)
+			{
+				AudioClip c = toListen.Dequeue();
+				audio.volume = 0.1f;
+				audio.clip = c;
+				this.OnAudioChanged(c);
+				audio.Play();
+			}
+		}
+	}
+
+	protected virtual void OnAudioChanged(AudioClip audioClip)
+	{
+
+	}
+
+	private void Update()
+	{
+		this.playSound();
+	}
+
+	#endregion
 }

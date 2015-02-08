@@ -12,6 +12,7 @@ public class Monster : MonoBehaviour
 	private AudioClip __nextSound;
 	public float	fadeSpeed = 0.1f;
 	public Transform fxPosition;
+	private GameObject fxSick;
 
 	public static Monster instance { get; private set; }
 
@@ -37,10 +38,13 @@ public class Monster : MonoBehaviour
 	void	Update()
 	{
 		playSound();
-		if (Input.GetKeyDown(KeyCode.Space))
-			OnLvlUp();
-		if (Input.GetKeyDown(KeyCode.KeypadEnter))
-			OnHappyBecauseNewMeubleAdded();
+		if (GameData.Get.Data.IsSick)
+		{
+			if (fxSick == null)
+				fxSick = FxManager.Get.Play(FX.Sickness, fxPosition);
+		}
+		else
+			Destroy(fxSick);
 	}
 
 	public void OnTapped()
@@ -52,7 +56,7 @@ public class Monster : MonoBehaviour
 		{
 			GameData.Get.Data.Diamonds += 10;
 			__nextSound = clipList[9];
-			GameData.Get.Data.LastFoodTime = DateTime.Now;
+			GameData.Get.Data.LastCoinTime = DateTime.Now;
 			FxManager.Get.Play(FX.Diamonds, fxPosition);
 		}
 	}
