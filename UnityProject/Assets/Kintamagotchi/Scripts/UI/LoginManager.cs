@@ -3,14 +3,15 @@
 //******************************************************************************
 
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 //******************************************************************************
-public class SplashScreen : MonoBehaviour 
+public class LoginManager : MonoBehaviour 
 {
 #region Script Parameters
-	public float		Delay = 2;
-	public GameObject	LoginPanel;
+	public InputField		Num;
+	public InputField		Mdp;
 #endregion
 
 #region Static
@@ -23,21 +24,34 @@ public class SplashScreen : MonoBehaviour
 	// Const -------------------------------------------------------------------
 
 	// Private -----------------------------------------------------------------
-	private AsyncOperation	mAsync;
-	private float			mTime = 0;
 #endregion
 
 #region Unity Methods
-	void Start() 
+#endregion
+
+#region Methods
+	public void AddNumero(int num)
 	{
-		
+		if (Mdp.text.Length < 6)
+			Mdp.text = Mdp.text + num.ToString();
 	}
 
-	void Update () 
+	public void Erase()
 	{
-		mTime += Time.deltaTime;
-		if (mTime > Delay)
-			LoginPanel.SetActive(true);
+		Mdp.text = "";
 	}
+
+	public void Login()
+	{
+		Application.LoadLevel("main");
+	}
+
+	public void Quit()
+	{
+		Application.Quit();
+	}
+#endregion
+
+#region Implementation
 #endregion
 }
