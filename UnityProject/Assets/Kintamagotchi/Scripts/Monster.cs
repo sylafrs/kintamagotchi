@@ -44,7 +44,8 @@ public class Monster : MonoBehaviour
 		transform.position = pPosition;
 		if (__fsm)
 			__fsm.Fsm.Event("selected");
-		__nextSound = clipList[1];
+		if (Random.Range(0, 30) == 15)
+			__nextSound = clipList[1];
 	}
 
 	public void MoveTo(Vector3 pPosition)
