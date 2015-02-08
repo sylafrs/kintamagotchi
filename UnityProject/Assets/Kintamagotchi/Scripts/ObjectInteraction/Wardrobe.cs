@@ -22,6 +22,7 @@ public class Wardrobe : cObject
 			GameData.Get.Data.LastWardRobeTime = DateTime.Now;
 		}
 
+		Monster.instance.SendEvent("OnDance");
 		base.OnTapped();
 	}
 }

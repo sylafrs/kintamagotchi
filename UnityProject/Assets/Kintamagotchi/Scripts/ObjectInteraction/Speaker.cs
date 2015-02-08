@@ -22,6 +22,9 @@ public class Speaker : cObject
 			GameData.Get.Data.Moral += 10;
 			GameData.Get.Data.LastSpeakerTime = DateTime.Now;
 		}
+
+		Monster.instance.SendEvent("OnDance");
+
 		FxManager.Get.Play(FX.TouchedSpeaker, FxPosition);
 		base.OnTapped();
 	}
