@@ -28,7 +28,7 @@ public class ItemMutuelle : Item {
 			if(GameData.Get.Data.SicknessAssurance <= 0)
 			{
 				GameData.Get.Data.SicknessAssurance = 0;
-				MenuManager.Get.ImgMaladie.SetActive(true);
+				MenuManager.Get.ImgMaladie.SetActive(false);
 			}
 		}
 	}

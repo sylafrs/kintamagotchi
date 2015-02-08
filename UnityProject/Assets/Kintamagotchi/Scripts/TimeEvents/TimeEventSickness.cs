@@ -32,6 +32,11 @@ public class TimeEventSickness : TimeEvent
 				Debug.Log("Sickness prevented");
 				MenuManager.Get.MessageBox.SetTextAndShow("Votre ami est en bonne santé grâce à votre assurance maladie");
 				GameData.Get.Data.SicknessAssurance--;
+				if (GameData.Get.Data.SicknessAssurance <= 0)
+				{
+					GameData.Get.Data.SicknessAssurance = 0;
+					MenuManager.Get.ImgMaladie.SetActive(false);
+				}
 			}
 			else
 			{
