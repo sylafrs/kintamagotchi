@@ -175,7 +175,7 @@ public class GameData : MonoBehaviour
 	{
 		foreach (GameDataItem it in Data.Inventory)
 		{
-			if (it.ItemDetail == item)
+			if (it.ItemDetail.Name == item.Name)
 			{
 				it.Number--;
 				if (it.Number == 0)
