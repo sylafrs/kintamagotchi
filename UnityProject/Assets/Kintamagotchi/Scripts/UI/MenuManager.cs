@@ -116,6 +116,7 @@ public class MenuManager : MonoBehaviour
 		if (PanelGlobal.activeSelf)
 		{
 			mNextClip = ClipList[0];
+			PanelCheat.gameObject.SetActive(false);
 			PanelShop.SetActive(false);
 			PanelDiamonds.SetActive(true);
 			PanelInventory.SetActive(false);
@@ -133,8 +134,8 @@ public class MenuManager : MonoBehaviour
 											  !PanelShop.activeSelf &&
 											  !PanelDiamonds.activeSelf &&
 											  !MessageBox.gameObject.activeSelf &&
-											  !DialogBox.gameObject.activeSelf;//&&
-											 // !PanelCheat.gameObject.activeSelf;
+											  !DialogBox.gameObject.activeSelf &&
+											  !PanelCheat.gameObject.activeSelf;
 	}
 
 	public void SwitchVisibility()
@@ -145,6 +146,7 @@ public class MenuManager : MonoBehaviour
 		}
 		if(PanelGlobal.activeSelf)
 		{
+			PanelCheat.gameObject.SetActive(false);
 			mNextClip = ClipList[0];
 			ShowInventory();
 		}
@@ -224,6 +226,21 @@ public class MenuManager : MonoBehaviour
 		Destroy(mItemGrab);
 		mItemGrab = null;
 		InteractionManager.instance.enabled = true;
+	}
+
+	public void CheatDance()
+	{
+		Monster.instance.SendEvent("OnDance");
+	}
+
+	public void CheatFire()
+	{
+		GameData.Get.GetComponent<TimeEventFire>().Launch();
+	}
+
+	public void CheatSick()
+	{
+		GameData.Get.GetComponent<TimeEventSickness>().Launch();
 	}
 #endregion
 
@@ -434,7 +451,11 @@ public class MenuManager : MonoBehaviour
 
 	public void ToogleCheatMenu()
 	{
-
+		PanelCheat.gameObject.SetActive(!PanelCheat.gameObject.activeSelf);
+		if (PanelCheat.gameObject.activeSelf)
+		{
+			PanelGlobal.SetActive(false);
+		}
 	}
 
 #endregion
