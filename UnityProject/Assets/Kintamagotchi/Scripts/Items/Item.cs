@@ -71,6 +71,8 @@ public class Item : MonoBehaviour
 		this.transform.position = slot.transform.position + slot.transform.up * offset;
 		this.transform.rotation = slot.transform.rotation;
 		this.transform.localScale = this.OriginalScale;
+		if (!slot.GetComponent<cObject>())
+			return;
 		slot.GetComponent<cObject>().hasActivatedObject = true;
 	}
 
