@@ -176,11 +176,18 @@ public class MenuManager : MonoBehaviour
 			{
 				eObjectType typeSlot = eObjectType._NO_TYPE_;
 				if (cObj = obj.GetComponent<cObject>())
-					typeSlot = cObj.pType;				
-				i.Use(typeSlot);
+					typeSlot = cObj.pType;
+				i.Use(typeSlot, obj);
 				GameData.Get.DecreaseCountItem(i.ItemDesc);
+				
+				if(i.ItemDesc.Type != TypeItem.Meuble)
+				{
+					GameObject.Destroy(mItemGrab);
+				}
+
 				mItemGrab = null;
 				InteractionManager.instance.enabled = true;
+
 				return;
 			}
 		}
@@ -269,8 +276,8 @@ public class MenuManager : MonoBehaviour
 
 	private bool BuyItem()
 	{
-		GameDataItem	item;
-		int				diamonds = GameData.Get.Data.Diamonds;
+		ItemDesc	item;
+		int			diamonds = GameData.Get.Data.Diamonds;
 
 		if (diamonds < mItemToBuy.Price)
 			return false;
@@ -290,10 +297,10 @@ public class MenuManager : MonoBehaviour
 		else
 		{
 			GameData.Get.Data.Diamonds = diamonds - mItemToBuy.Price;
-			item = new GameDataItem();
-			item.ItemDetail = mItemToBuy;
-			item.Number = 1;
-			GameData.Get.AddItem(item);
+			GameDataItem newItem = new GameDataItem();
+			newItem.ItemDetail = mItemToBuy;
+			newItem.Number = 1;
+			GameData.Get.AddItem(newItem);
 			UpdateDiamonds();
 		}
 		return true;
