@@ -193,6 +193,7 @@ public class GameData : MonoBehaviour
 		{
 			Data.Exp -= MaxExp;
 			Data.Level++;
+			GameObject.FindObjectOfType<Monster>().OnLvlUp();
 		}
 	}
 
@@ -203,14 +204,17 @@ public class GameData : MonoBehaviour
 		if(Data.Moral < 0.2f)
 		{
 			// SAD :'(
+			GameObject.FindObjectOfType<Monster>().OnSad();
 		}
 		else if(Data.Moral < 0.45f)
 		{
 			// NEUTRAL :|
+			GameObject.FindObjectOfType<Monster>().OnNeutral();
 		}
 		else
 		{
 			// HAPPY ! :D
+			GameObject.FindObjectOfType<Monster>().OnIsHappy();
 		}
 	}
 
