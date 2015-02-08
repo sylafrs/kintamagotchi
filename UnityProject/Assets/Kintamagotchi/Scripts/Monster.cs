@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Monster : MonoBehaviour
 {
-	public Transform target;
+	private Transform target;
 	private PlayMakerFSM[] __fsm;
 
 	void Awake()
