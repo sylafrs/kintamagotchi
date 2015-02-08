@@ -164,7 +164,8 @@ public class MenuManager : MonoBehaviour
 
 	public void UseItem(string name)
 	{
-		mItemGrab = GameObject.Instantiate(Resources.Load("Prefabs/Item/Cube")) as GameObject;
+		string prefabName = name.Replace(" ", "_").Replace("é", "e");
+		mItemGrab = GameObject.Instantiate(Resources.Load("Prefabs/Item/" + prefabName)) as GameObject;
 		ItemDesc itemDesc = ItemsShop.GetItem(name);
 		mItemGrab.GetComponent<Item>().ItemDesc = itemDesc;
 		mDropItem = false;

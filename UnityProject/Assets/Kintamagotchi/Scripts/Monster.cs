@@ -10,9 +10,14 @@ public class Monster : MonoBehaviour
 	private AudioSource	__actualSound;
 	private AudioClip __nextSound;
 	public float	fadeSpeed = 0.1f;
+
+	public static Monster instance { get; private set; }
+
 	public float	defaultVolume = 1f;
+
 	void Awake()
 	{
+		instance = this;
 		this.target = GameObject.Find("Target").transform;
 	}
 
