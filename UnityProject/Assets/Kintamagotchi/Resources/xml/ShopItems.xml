@@ -2,7 +2,7 @@
 <ArrayOfItemDesc>
   <ItemDesc>
     <Name>Bon poulet</Name>
-    <Sprite>UISprite</Sprite>
+    <Sprite>poulet</Sprite>
     <Desc>Nourris-le</Desc>
     <Price>5</Price>
     <Type>Consommable</Type>
@@ -12,7 +12,7 @@
   </ItemDesc>
   <ItemDesc>
     <Name>Brosse</Name>
-    <Sprite>UISprite</Sprite>
+    <Sprite></Sprite>
     <Desc>Brosse-le</Desc>
     <Price>10</Price>
     <Type>Consommable</Type>
@@ -22,7 +22,7 @@
   </ItemDesc>
   <ItemDesc>
     <Name>Balle</Name>
-    <Sprite>UISprite</Sprite>
+    <Sprite>ballon</Sprite>
     <Desc>Joue avec lui</Desc>
     <Price>10</Price>
     <Type>Consommable</Type>
@@ -32,7 +32,7 @@
   </ItemDesc>
   <ItemDesc>
     <Name>Fauteuil</Name>
-    <Sprite>UISprite</Sprite>
+    <Sprite></Sprite>
     <Desc>Hmmm confortable</Desc>
     <Price>20</Price>
     <Type>Meuble</Type>
@@ -44,7 +44,7 @@
   </ItemDesc>
   <ItemDesc>
     <Name>Antibiotique</Name>
-    <Sprite>UISprite</Sprite>
+    <Sprite></Sprite>
     <Desc>Soigne-le</Desc>
     <Price>20</Price>
     <Slots/>
@@ -53,7 +53,7 @@
   </ItemDesc>
   <ItemDesc>
     <Name>Armoire</Name>
-    <Sprite>UISprite</Sprite>
+    <Sprite></Sprite>
     <Desc>Occupation saine</Desc>
     <Price>30</Price>
     <Type>Meuble</Type>
@@ -65,7 +65,7 @@
   </ItemDesc>
   <ItemDesc>
     <Name>Lit</Name>
-    <Sprite>UISprite</Sprite>
+    <Sprite></Sprite>
     <Desc>Dormir c'est bien</Desc>
     <Price>50</Price>
     <Type>Meuble</Type>
@@ -77,7 +77,7 @@
   </ItemDesc>
   <ItemDesc>
     <Name>Enceinte</Name>
-    <Sprite>UISprite</Sprite>
+    <Sprite></Sprite>
     <Desc>Danse et bouge</Desc>
     <Price>50</Price>
     <Type>Meuble</Type>
@@ -89,7 +89,7 @@
   </ItemDesc>
   <ItemDesc>
     <Name>Mutuelle santé</Name>
-    <Sprite>UISprite</Sprite>
+    <Sprite>assurance</Sprite>
     <Desc>Prévenir est mieux que guérir</Desc>
     <Price>100</Price>
     <Type>Assurance</Type>
@@ -99,7 +99,7 @@
   </ItemDesc>
   <ItemDesc>
     <Name>Assurance habitation</Name>
-    <Sprite>UISprite</Sprite>
+    <Sprite>Habitation</Sprite>
     <Desc>Protège sa maison</Desc>
     <Price>100</Price>
     <Type>Assurance</Type>

@@ -105,6 +105,11 @@ public class PanelGenerator : MonoBehaviour
 			uiValue.Name.text = item.Name;
 			uiValue.Price.text = item.Price.ToString();
 			uiValue.Desc.text = item.Desc;
+			if (item.Sprite != "")
+			{
+				Sprite tmp = Resources.Load<Sprite>("Sprites/" + item.Sprite);
+				uiValue.Sprite.sprite = tmp;
+			}
 		}
 	}
 	private void GenerateInventoryPanel()
@@ -124,6 +129,11 @@ public class PanelGenerator : MonoBehaviour
 			uiValue.Name.text = item.ItemDetail.Name;
 			uiValue.Count.text = item.Number.ToString();
 			uiValue.Desc.text = item.ItemDetail.Desc;
+			if (item.ItemDetail.Sprite != "")
+			{
+				Sprite tmp = Resources.Load<Sprite>("Sprites/" + item.ItemDetail.Sprite);
+				uiValue.Sprite.sprite = tmp;
+			}
 		}
 	}
 

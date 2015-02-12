@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
 	public GameObject		PanelDiamonds;
 	public GameObject		PanelGlobal;
 	public GameObject		PanelCheat;
+	public GameObject		PanelCredits;
 	public Button			ButtonInventory;
 	public Button			ButtonShop;
 	public ItemShop			ItemsShop;
@@ -28,6 +29,7 @@ public class MenuManager : MonoBehaviour
 	public GameObject[]		SlotsRenderer = new GameObject[4];
 	public float			FadeSpeed = 0.1f;
 	public List<AudioClip>	ClipList;
+	public Color			SelectedColor = new Color(169, 102, 51);
 #endregion
 
 #region Static
@@ -88,6 +90,19 @@ public class MenuManager : MonoBehaviour
 #endregion
 
 #region Methods
+
+	public void ShowCredits()
+	{
+		if (PanelCheat.activeSelf)
+		{
+			PanelCheat.gameObject.SetActive(false);
+			PanelCredits.gameObject.SetActive(true);
+		}
+		else
+		{
+			PanelCredits.gameObject.SetActive(false);
+		}
+	}
 	public void ShowInventory()
 	{
 		PanelShop.SetActive(false);
@@ -95,6 +110,8 @@ public class MenuManager : MonoBehaviour
 		PanelInventory.SetActive(true);
 		ButtonInventory.gameObject.SetActive(true);
 		ButtonShop.gameObject.SetActive(true);
+		ButtonInventory.image.color = SelectedColor;
+		ButtonShop.image.color = Color.white;;
 		ClearPopup();
 	}
 
@@ -105,6 +122,8 @@ public class MenuManager : MonoBehaviour
 		PanelInventory.SetActive(false);
 		ButtonInventory.gameObject.SetActive(true);
 		ButtonShop.gameObject.SetActive(true);
+		ButtonInventory.image.color = Color.white;
+		ButtonShop.image.color = SelectedColor;
 		ClearPopup();
 	}
 
@@ -144,6 +163,7 @@ public class MenuManager : MonoBehaviour
 		}
 		if(PanelGlobal.activeSelf)
 		{
+			PanelCredits.gameObject.SetActive(false);
 			PanelCheat.gameObject.SetActive(false);
 			mNextClip = ClipList[0];
 			ShowInventory();
@@ -464,6 +484,7 @@ public class MenuManager : MonoBehaviour
 		PanelCheat.gameObject.SetActive(!PanelCheat.gameObject.activeSelf);
 		if (PanelCheat.gameObject.activeSelf)
 		{
+			PanelCredits.SetActive(false);
 			PanelGlobal.SetActive(false);
 		}
 	}
