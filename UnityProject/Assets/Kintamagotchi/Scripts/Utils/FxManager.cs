@@ -50,9 +50,9 @@ public class FxManager : MonoBehaviour
 	public GameObject Play(FX fx, Transform target)
 	{
 		var instance = Instantiate(FX[(int)fx]) as GameObject;
-		instance.transform.parent = target;
-		instance.transform.localPosition = Vector3.zero;
-		instance.transform.localRotation = Quaternion.identity;
+		//instance.transform.parent = target;
+		instance.transform.position = target.position;
+		instance.transform.parent	= target;
 		instance.SetActive(true);
 		return instance;
 	}

@@ -4,10 +4,7 @@ public class Item : MonoBehaviour
 {
 	[HideInInspector]
 	public eObjectType usedSlot;
-
-	public Vector3 OriginalScale;
-	public float offset;
-
+	
 	[HideInInspector]
 	public ItemDesc		ItemDesc;
 		
@@ -78,9 +75,9 @@ public class Item : MonoBehaviour
 
 	public virtual void PlaceToSlot(GameObject slot)
 	{
-		this.transform.position = slot.transform.position + slot.transform.up * offset;
+		this.transform.position = slot.transform.position;
 		this.transform.rotation = slot.transform.rotation;
-		this.transform.localScale = this.OriginalScale;
+		this.transform.localScale = Vector3.one;
 		if (!slot.GetComponent<cObject>())
 			return;
 		slot.GetComponent<cObject>().hasActivatedObject = true;

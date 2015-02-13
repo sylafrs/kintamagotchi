@@ -166,6 +166,6 @@ public class InteractionManager : MonoBehaviour
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawSphere(gizmosPosition, 1);
+		Gizmos.DrawSphere(gizmosPosition, 0.1f);
 	}
 }
