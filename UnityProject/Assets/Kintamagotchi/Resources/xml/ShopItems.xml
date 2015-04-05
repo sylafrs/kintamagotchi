@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfItemDesc>
   <ItemDesc>
-    <Name>Bon poulet</Name>
+    <Name>Bon_poulet</Name>
     <Sprite>poulet</Sprite>
     <Desc>Nourris-le</Desc>
     <Price>5</Price>
